@@ -69,13 +69,15 @@ this task
 	public static Hero chooseHero()
 	{
 		int choice;
-		Hero theHero;
+		Hero theHero; // Never used
 
 		System.out.println("Choose a hero:\n" +
 					       "1. Warrior\n" +
 						   "2. Sorceress\n" +
 						   "3. Thief");
 		choice = Keyboard.readInt();
+		
+		// Add try catch block for input validation
 
 		switch(choice)
 		{
@@ -87,6 +89,7 @@ this task
 
 			default: System.out.println("invalid choice, returning Thief");
 				     return new Thief();
+				     // No reason for default switch, use input validation instead
 		}//end switch
 	}//end chooseHero method
 
@@ -98,6 +101,7 @@ a polymorphic reference (Monster) to accomplish this task.
 	{
 		int choice;
 
+		// Use different library to get random Int?
 		choice = (int)(Math.random() * 3) + 1;
 
 		switch(choice)
@@ -110,6 +114,7 @@ a polymorphic reference (Monster) to accomplish this task.
 
 			default: System.out.println("invalid choice, returning Skeleton");
 				     return new Skeleton();
+				     // No reason for the default switch
 		}//end switch
 	}//end generateMonster method
 
@@ -119,11 +124,14 @@ true if the user chooses to continue, false otherwise.
 ---------------------------------------------------------------------*/
 	public static boolean playAgain()
 	{
-		char again;
+		char again; // assign a value, "" for blank
 
 		System.out.println("Play again (y/n)?");
+		
+		// Maybe pass in a scanner instead. TBD
 		again = Keyboard.readChar();
 
+		// Before validation use .toUpperCase() or .toLowerCase()
 		return (again == 'Y' || again == 'y');
 	}//end playAgain method
 

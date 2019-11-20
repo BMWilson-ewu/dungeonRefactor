@@ -115,9 +115,10 @@ This method is called by: overridden versions in Hero and Monster
 ---------------------------------------------------------*/
 	public void subtractHitPoints(int hitPoints)
 	{
-		if (hitPoints <0)
+		// Why state hit points must be positive?
+		if (hitPoints < 0)
 			System.out.println("Hitpoint amount must be positive.");
-		else if (hitPoints >0)
+		else if (hitPoints > 0)
 		{
 			this.hitPoints -= hitPoints;
 			if (this.hitPoints < 0)
@@ -166,8 +167,9 @@ hero classes and externally
 		boolean canAttack;
 		int damage;
 
-		canAttack = Math.random() <= chanceToHit;
+		canAttack = Math.random() <= chanceToHit; // change chance to hit to int?
 
+		// Use nextInt() instead of Math.Random
 		if (canAttack)
 		{
 			damage = (int)(Math.random() * (damageMax - damageMin + 1))
