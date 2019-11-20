@@ -2,7 +2,6 @@ package heros;
 
 import common.AttackResult;
 import common.DungeonCharacter;
-import common.Keyboard;
 
 /**
  * Title: Hero.java
@@ -29,7 +28,7 @@ import common.Keyboard;
  */
 
 public abstract class Hero extends DungeonCharacter {
-	
+
 	protected double chanceToBlock;
 	private int numTurns;
 	private HeroType type;
@@ -43,19 +42,19 @@ public abstract class Hero extends DungeonCharacter {
 		this.type = type;
 		readName();
 	}
-	
+
 	public HeroType getType() {
 		return this.type;
 	}
-	
+
 	public int getTurns() {
 		return this.numTurns;
 	}
-	
+
 	public void incrementTurnCount() {
 		this.numTurns += 1;
 	}
-	
+
 	public void decrementTurnCount() {
 		this.numTurns -= 1;
 	}
@@ -72,7 +71,7 @@ public abstract class Hero extends DungeonCharacter {
 	public void readName() {
 		System.out.print("Enter character name: ");
 		// TODO fix this and move it elsewhere
-		String name = Keyboard.readString();
+		// String name = Keyboard.readString();
 	}// end readName method
 
 	/*-------------------------------------------------------
@@ -125,7 +124,7 @@ public abstract class Hero extends DungeonCharacter {
 	public int determinTurns(DungeonCharacter opponent) {
 		return numTurns = this.getAttackSpeed() / opponent.getAttackSpeed() != 0 ? numTurns : 1;
 	}// end battleChoices
-	
+
 	public abstract AttackResult specialAttack(DungeonCharacter opponent);
 
 }// end Hero class

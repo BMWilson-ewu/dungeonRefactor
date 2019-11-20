@@ -12,9 +12,11 @@ import common.DungeonCharacter;
 
 public class Warrior extends Hero {
 
-	public Warrior() {
+	public Warrior(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
+			double chanceToBlock, HeroType type) {
 
-		super("Warrior", 125, 4, .8, 35, 60, .2, HeroType.WARRIOR);
+		super(name, hitPoints, attackSpeed, chanceToHit,
+				damageMin, damageMax, chanceToBlock, type);
 
 	}// end constructor
 

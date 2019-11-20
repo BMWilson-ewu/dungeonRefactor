@@ -16,9 +16,11 @@ import common.DungeonCharacter;
 public class Thief extends Hero
 {
 
-    public Thief()
+    public Thief(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
+			double chanceToBlock, HeroType type)
 	{
-		super("Thief", 75, 6, .8, 20, 40, .5, HeroType.THIEF);
+		super(name, hitPoints, attackSpeed, chanceToHit,
+				damageMin, damageMax, chanceToBlock, type);
 
 
 

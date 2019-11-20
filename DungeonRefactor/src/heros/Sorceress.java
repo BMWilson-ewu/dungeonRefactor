@@ -11,12 +11,14 @@ import common.DungeonCharacter;
  */
 
 public class Sorceress extends Hero {
-	public final int MIN_ADD = 25;
-	public final int MAX_ADD = 50;
+	private final int MIN_ADD = 25;
+	private final int MAX_ADD = 50;
 
 //-----------------------------------------------------------------
-	public Sorceress() {
-		super("Sorceress", 75, 5, .7, 25, 50, .3, HeroType.SORCERESS);
+	public Sorceress(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
+			double chanceToBlock, HeroType type) {
+		super(name, hitPoints, attackSpeed, chanceToHit,
+				damageMin, damageMax, chanceToBlock, type);
 
 	}// end constructor
 

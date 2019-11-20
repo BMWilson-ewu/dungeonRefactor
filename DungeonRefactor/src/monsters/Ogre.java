@@ -13,9 +13,11 @@ package monsters;
 public class Ogre extends Monster
 {
 
-    public Ogre()
+    public Ogre(String name, int hitPoints, int attackSpeed, double chanceToHit, double chanceToHeal, int damageMin,
+			int damageMax, int minHeal, int maxHeal, MonsterType type)
 	{
-		super("Oscar the Ogre", 200, 2, .6, .1, 30, 50, 30, 50, MonsterType.OGRE);
+		super(name, hitPoints, attackSpeed, chanceToHit, chanceToHeal,
+				damageMin, damageMax, damageMin, damageMax, type);
 
     }//end constructor
 

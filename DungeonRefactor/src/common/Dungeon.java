@@ -1,15 +1,11 @@
 package common;
 
+import builders.HeroFactory;
+import builders.MonsterFactory;
 import heros.Hero;
 import heros.HeroType;
-import heros.Sorceress;
-import heros.Thief;
-import heros.Warrior;
-import monsters.Gremlin;
 import monsters.Monster;
 import monsters.MonsterType;
-import monsters.Ogre;
-import monsters.Skeleton;
 
 /**
  * Title: Dungeon.java
@@ -61,28 +57,15 @@ public class Dungeon {
 	---------------------------------------------------------------------*/
 	private static Hero chooseHero() {
 		int choice;
-		Hero theHero; // Never used
+	//	Hero theHero; // Never used TODO delete this token
 
 		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief");
 		choice = Keyboard.readInt();
 
 		// Add try catch block for input validation
 
-		switch (choice) {
-		case 1:
-			return new Warrior();
+		return new HeroFactory().createHero(choice);
 
-		case 2:
-			return new Sorceress();
-
-		case 3:
-			return new Thief();
-
-		default:
-			System.out.println("invalid choice, returning Thief");
-			return new Thief();
-		// No reason for default switch, use input validation instead
-		}// end switch
 	}// end chooseHero method
 
 	/*-------------------------------------------------------------------
@@ -95,21 +78,7 @@ public class Dungeon {
 		// Use different library to get random Int?
 		choice = (int) (Math.random() * 3) + 1;
 
-		switch (choice) {
-		case 1:
-			return new Ogre();
-
-		case 2:
-			return new Gremlin();
-
-		case 3:
-			return new Skeleton();
-
-		default:
-			System.out.println("invalid choice, returning Skeleton");
-			return new Skeleton();
-		// No reason for the default switch
-		}// end switch
+		return new MonsterFactory().createMonster(choice);
 	}// end generateMonster method
 
 	/*-------------------------------------------------------------------
@@ -149,10 +118,11 @@ public class Dungeon {
 			// monster's turn (provided it's still alive!)
 			do {
 				heroAttack(theHero, theMonster);
-				if(areAlive(theHero, theMonster)) {
+				if (areAlive(theHero, theMonster)) {
 					monsterAttack(theHero, theMonster);
 				}
 			} while (areAlive(theHero, theMonster));
+
 			if (theMonster.isAlive())
 				theMonster.attack(theHero);
 
@@ -168,39 +138,21 @@ public class Dungeon {
 		else// both are alive so user quit the game
 			System.out.println("Quitters never win ;-)");
 
-		// Hits opponets
-		// Heros
-		// Warrior
-
-		// Thief
-		// Was this shit blank?
-
-		// Sorceress
-
-		// Skeleton
-		
-
-		// Gremlin
-
-
-		// Ogre
-
 	}// end battle method
 
 	private static boolean areAlive(Hero theHero, Monster theMonster) {
 		return theHero.isAlive() && theMonster.isAlive();
 	}
-	
+
 	private static void monsterAttack(Hero theHero, Monster theMonster) {
-		
+
 		MonsterType monsterType = theMonster.getType();
 
 		displayMonsterAttackResults(monsterType, theMonster.attack(theHero), theHero, theMonster);
 		displayMonsterHealResults(monsterType, theMonster.heal(), theHero, theMonster);
-		
-		
+
 	}
-	
+
 	private static void displayMonsterAttackResults(MonsterType monsterType, AttackResult attackDetails, Hero theHero,
 			Monster theMonster) {
 
@@ -224,13 +176,13 @@ public class Dungeon {
 		}
 
 	}
-	
+
 	private static void displayMonsterHealResults(MonsterType monsterType, AttackResult healDetails, Hero theHero,
 			Monster theMonster) {
-		if(healDetails.getCouldAttack()) {
+		if (healDetails.getCouldAttack()) {
 			System.out.println(theMonster.getName() + " healed itself for " + healDetails.getDamageDone() + " points.\n"
 					+ "Total hit points remaining are: " + theMonster.getHitPoints() + "\n");
-		}		
+		}
 	}
 
 	private static void heroAttack(Hero theHero, Monster theMonster) {
@@ -324,8 +276,8 @@ public class Dungeon {
 			}
 			break;
 		case SORCERESS:
-			System.out.println(theHero.getName() + " added [" + attackDetails.getDamageDone() + "] points.\n" + "Total hit points remaining are: "
-					+ theHero.getHitPoints() + "\n");
+			System.out.println(theHero.getName() + " added [" + attackDetails.getDamageDone() + "] points.\n"
+					+ "Total hit points remaining are: " + theHero.getHitPoints() + "\n");
 			break;
 		}
 	}

@@ -32,7 +32,7 @@ public abstract class Monster extends DungeonCharacter {
 	public MonsterType getType() {
 		return this.type;
 	}
-	
+
 	public AttackResult heal() {
 		Random rnjesus = new Random();
 		boolean canHeal = (rnjesus.nextDouble() <= chanceToHeal) && (this.getHitPoints() > 0);

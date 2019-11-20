@@ -29,7 +29,7 @@ import java.util.Random;
  */
 
 public abstract class DungeonCharacter implements Comparable {
-
+	// TODO remove comparable because it was never used
 	private String name;
 	private int hitPoints;
 	private int attackSpeed;
