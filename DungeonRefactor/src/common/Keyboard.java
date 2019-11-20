@@ -1,3 +1,4 @@
+package common;
 
 //********************************************************************
 //  Keyboard.java       Author: Lewis and Loftus
