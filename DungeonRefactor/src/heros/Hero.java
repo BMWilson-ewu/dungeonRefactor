@@ -55,6 +55,10 @@ public abstract class Hero extends DungeonCharacter {
 	public void incrementTurnCount() {
 		this.numTurns += 1;
 	}
+	
+	public void decrementTurnCount() {
+		this.numTurns -= 1;
+	}
 
 	/*-------------------------------------------------------
 	readName obtains a name for the hero from the user
@@ -67,7 +71,8 @@ public abstract class Hero extends DungeonCharacter {
 	---------------------------------------------------------*/
 	public void readName() {
 		System.out.print("Enter character name: ");
-		name = Keyboard.readString();
+		// TODO fix this and move it elsewhere
+		String name = Keyboard.readString();
 	}// end readName method
 
 	/*-------------------------------------------------------
@@ -98,7 +103,7 @@ public abstract class Hero extends DungeonCharacter {
 	---------------------------------------------------------*/
 	public void subtractHitPoints(int hitPoints) {
 		if (defend()) {
-			System.out.println(name + " BLOCKED the attack!");
+			System.out.println(this.getName() + " BLOCKED the attack!");
 		} else {
 			super.subtractHitPoints(hitPoints);
 		}
@@ -118,7 +123,7 @@ public abstract class Hero extends DungeonCharacter {
 	This method is called by: external sources
 	---------------------------------------------------------*/
 	public int determinTurns(DungeonCharacter opponent) {
-		return numTurns = attackSpeed / opponent.getAttackSpeed() != 0 ? numTurns : 1;
+		return numTurns = this.getAttackSpeed() / opponent.getAttackSpeed() != 0 ? numTurns : 1;
 	}// end battleChoices
 	
 	public abstract AttackResult specialAttack(DungeonCharacter opponent);

@@ -1,4 +1,6 @@
 package heros;
+import java.util.Random;
+
 import common.AttackResult;
 import common.DungeonCharacter;
 
@@ -24,22 +26,23 @@ public class Thief extends Hero
 
 	@Override
 	public AttackResult specialAttack(DungeonCharacter opponent) {
-		double surprise = Math.random();
-		if (surprise <= .4)
+		Random rnjesus = new Random();
+		AttackResult grabDamage;
+		double surprise = rnjesus.nextDouble();
+		boolean couldLandSpecialAttack = surprise <= .4;
+		int damage = 0;
+		if (couldLandSpecialAttack)
 		{
-			System.out.println("Surprise attack was successful!\n" +
-								name + " gets an additional turn.");
 			this.incrementTurnCount();
-			return attack(opponent);
+			grabDamage = attack(opponent);
+			damage = grabDamage.getDamageDone();
 		}//end surprise
-		else if (surprise >= .9)
+		else if (surprise < .9)
 		{
-			System.out.println("Uh oh! " + opponent.getName() + " saw you and" +
-								" blocked your attack!");
+			grabDamage = attack(opponent);
+			damage = grabDamage.getDamageDone();
 		}
-		else
-		    return attack(opponent);
-		return new AttackResult(0, false);
+		return new AttackResult(damage, couldLandSpecialAttack);
 	}
 
 }

@@ -7,6 +7,7 @@ import heros.Thief;
 import heros.Warrior;
 import monsters.Gremlin;
 import monsters.Monster;
+import monsters.MonsterType;
 import monsters.Ogre;
 import monsters.Skeleton;
 
@@ -148,6 +149,9 @@ public class Dungeon {
 			// monster's turn (provided it's still alive!)
 			do {
 				heroAttack(theHero, theMonster);
+				if(areAlive(theHero, theMonster)) {
+					monsterAttack(theHero, theMonster);
+				}
 			} while (areAlive(theHero, theMonster));
 			if (theMonster.isAlive())
 				theMonster.attack(theHero);
@@ -174,37 +178,64 @@ public class Dungeon {
 		// Sorceress
 
 		// Skeleton
-		System.out.println(theMonster.getName() + " slices his rusty blade at " + theHero.getName() + ":");
+		
 
 		// Gremlin
-		System.out.println(theMonster + " jabs his kris at " + theHero.getName() + ":");
+
 
 		// Ogre
-		System.out.println(theMonster + " slowly swings a club toward's " + theHero.getName() + ":");
 
 	}// end battle method
 
 	private static boolean areAlive(Hero theHero, Monster theMonster) {
 		return theHero.isAlive() && theMonster.isAlive();
 	}
+	
+	private static void monsterAttack(Hero theHero, Monster theMonster) {
+		
+		MonsterType monsterType = theMonster.getType();
 
-	private void monsterAttack() {
-		// if sucess
-		System.out.println(getName() + " hit " + " for <" + hitPoints + "> points damage.");
-		System.out.println(getName() + " now has " + getHitPoints() + " hit points remaining.");
-		System.out.println();
-		System.out.println();
+		displayMonsterAttackResults(monsterType, theMonster.attack(theHero), theHero, theMonster);
+		displayMonsterHealResults(monsterType, theMonster.heal(), theHero, theMonster);
+		
+		
+	}
+	
+	private static void displayMonsterAttackResults(MonsterType monsterType, AttackResult attackDetails, Hero theHero,
+			Monster theMonster) {
 
-		// if failed to attack
+		switch (monsterType) {
+		case GREMLIN:
+			System.out.println(theMonster.getName() + " jabs his kris at " + theHero.getName() + ":");
+			break;
+		case OGRE:
+			System.out.println(theMonster.getName() + " slowly swings a club toward's " + theHero.getName() + ":");
+			break;
+		case SKELETON:
+			System.out.println(theMonster.getName() + " slices his rusty blade at " + theHero.getName() + ":");
+			break;
+		}
+		if (attackDetails.getCouldAttack()) {
+			System.out.println(
+					theMonster.getName() + " hit " + " for <" + attackDetails.getDamageDone() + "> points of damage.");
+			System.out.println(theHero.getName() + " now has " + theHero.getHitPoints() + " hit points remaining.");
+		} else {
+			System.out.println(theMonster.getName() + "'s attack on " + theHero.getName() + " failed!\n");
+		}
 
-		System.out.println();
+	}
+	
+	private static void displayMonsterHealResults(MonsterType monsterType, AttackResult healDetails, Hero theHero,
+			Monster theMonster) {
+		if(healDetails.getCouldAttack()) {
+			System.out.println(theMonster.getName() + " healed itself for " + healDetails.getDamageDone() + " points.\n"
+					+ "Total hit points remaining are: " + theMonster.getHitPoints() + "\n");
+		}		
 	}
 
 	private static void heroAttack(Hero theHero, Monster theMonster) {
 
-		int turns = theHero.getTurns();
 		HeroType heroType = theHero.getType();
-		AttackResult attackDetails;
 
 		int choice = 0;
 
@@ -215,22 +246,22 @@ public class Dungeon {
 			System.out.print("Choose an option: ");
 
 			choice = Keyboard.readInt();
+			// surround with try catch
 
 			switch (choice) {
 			case 1:
-				attackDetails = theHero.attack(theMonster);
-				displayAttackResults(heroType, attackDetails, theHero, theMonster);
+				displayHeroAttackResults(heroType, theHero.attack(theMonster), theHero, theMonster);
 				break;
 			case 2:
-				attackDetails = theHero.specialAttack(theMonster);
-				displaySpecialAttackResults(heroType, attackDetails, theHero, theMonster);
+				displayHeroSpecialAttackResults(heroType, theHero.specialAttack(theMonster), theHero, theMonster);
 				break;
 			default:
 				System.out.println("invalid choice!");
+				// get rid of default system.out.println or replace with exception
 			}// end switch
 
-			turns--;
-		} while (areAlive(theHero, theMonster) && turns > 0);
+			theHero.decrementTurnCount();
+		} while (areAlive(theHero, theMonster) && theHero.getTurns() > 0);
 	}
 
 	private static void displaySpecial(HeroType heroType) {
@@ -247,40 +278,54 @@ public class Dungeon {
 		}
 	}
 
-	private static void displayAttackResults(HeroType heroType, AttackResult attackDetails, Hero theHero,
+	private static void displayHeroAttackResults(HeroType heroType, AttackResult attackDetails, Hero theHero,
 			Monster theMonster) {
-		
+
+		switch (heroType) {
+		case WARRIOR:
+			System.out.println(theHero.getName() + " swings a mighty sword at " + theMonster.getName() + ":");
+			break;
+		case THIEF:
+			// TODO What should we add for the thiefs basic attack
+			break;
+		case SORCERESS:
+			System.out.println(theHero.getName() + " casts a spell of fireball at " + theMonster.getName() + ":");
+			break;
+		}
 		if (attackDetails.getCouldAttack()) {
-
-			switch (heroType) {
-			case WARRIOR:
-
-				System.out.println(theHero.getName() + " swings a mighty sword at " + theMonster.getName() + ":");
-				break;
-			case THIEF:
-				// TODO What should we add for the thiefs basic attack
-				break;
-			case SORCERESS:
-				System.out.println(theHero.getName() + " casts a spell of fireball at " + theMonster.getName() + ":");
-				break;
-			}
+			System.out.println(
+					theHero.getName() + " hit " + " for <" + attackDetails.getDamageDone() + "> points of damage.");
 		} else {
 			System.out.println(theHero.getName() + "'s attack on " + theMonster.getName() + " failed!\n");
 		}
 
 	}
 
-	private static void displaySpecialAttackResults(HeroType heroType, AttackResult attackDetails, Hero theHero,
+	private static void displayHeroSpecialAttackResults(HeroType heroType, AttackResult attackDetails, Hero theHero,
 			Monster theMonster) {
 		switch (heroType) {
 		case WARRIOR:
-			System.out.println(theHero.getName() + " swings a mighty sword at " + theMonster.getName() + ":");
+			if (attackDetails.getCouldAttack()) {
+				System.out.println(
+						theHero.getName() + " lands a CRUSHING BLOW for " + attackDetails.getDamageDone() + " damage!");
+			} else {
+				System.out.println(theHero.getName() + " failed to land a crushing blow.\n");
+			}
 			break;
 		case THIEF:
-			// What should we add for the thiefs basic attack
+			if (attackDetails.getCouldAttack()) {
+				System.out
+						.println("Surprise attack was successful!\n" + theHero.getName() + " gets an additional turn.");
+			} else if (attackDetails.getDamageDone() < 0) {
+				System.out.println("Uh oh! " + theMonster.getName() + " saw you and" + " blocked your attack!");
+			} else {
+				AttackResult morphDetails = new AttackResult(attackDetails.getDamageDone(), true);
+				displayHeroAttackResults(heroType, morphDetails, theHero, theMonster);
+			}
 			break;
 		case SORCERESS:
-			System.out.println(theHero.getName() + " casts a spell of fireball at " + theMonster.getName() + ":");
+			System.out.println(theHero.getName() + " added [" + attackDetails.getDamageDone() + "] points.\n" + "Total hit points remaining are: "
+					+ theHero.getHitPoints() + "\n");
 			break;
 		}
 	}

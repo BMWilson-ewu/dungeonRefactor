@@ -1,47 +1,32 @@
 package heros;
+
 import common.AttackResult;
 import common.DungeonCharacter;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
+public class Warrior extends Hero {
 
-
-
-public class Warrior extends Hero
-{
-
-    public Warrior()
-	{
+	public Warrior() {
 
 		super("Warrior", 125, 4, .8, 35, 60, .2, HeroType.WARRIOR);
 
-
-    }//end constructor
+	}// end constructor
 
 	@Override
 	public AttackResult specialAttack(DungeonCharacter opponent) {
 		boolean couldAttack = Math.random() <= .4;
 		int damage = 0;
-		if ( couldAttack )
-		{
-			damage = (int)(Math.random() * 76) + 100;
-			System.out.println(name + " lands a CRUSHING BLOW for " + damage
-								+ " damage!");
+		if (couldAttack) {
+			damage = (int) (Math.random() * 76) + 100;
 			opponent.subtractHitPoints(damage);
-		}//end blow succeeded
-		else
-		{
-			System.out.println(name + " failed to land a crushing blow");
-			System.out.println();
-		}//blow failed
+		}
 		return new AttackResult(damage, couldAttack);
 	}
 
-}//end Hero class
+}// end Hero class

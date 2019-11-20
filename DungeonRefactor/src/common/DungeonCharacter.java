@@ -30,11 +30,11 @@ import java.util.Random;
 
 public abstract class DungeonCharacter implements Comparable {
 
-	protected String name;
-	protected int hitPoints;
-	protected int attackSpeed;
-	protected double chanceToHit;
-	protected int damageMin, damageMax;
+	private String name;
+	private int hitPoints;
+	private int attackSpeed;
+	private double chanceToHit;
+	private int damageMin, damageMax;
 
 	public int compareTo(Object o) {
 		return 1;
@@ -81,6 +81,7 @@ public abstract class DungeonCharacter implements Comparable {
 	---------------------------------------------------------*/
 	public void addHitPoints(int hitPoints) {
 		if (hitPoints <= 0)
+			// TODO remove this printline with a exception.
 			System.out.println("Hitpoint amount must be positive.");
 		else {
 			this.hitPoints += hitPoints;
@@ -143,25 +144,16 @@ public abstract class DungeonCharacter implements Comparable {
 
 	// switch to boolean
 	public AttackResult attack(DungeonCharacter opponent) {
-		boolean canAttack = false;
-		int damage = 0;
-
 		Random rnjesus = new Random();
-
-		canAttack = rnjesus.nextDouble() <= chanceToHit;
+		boolean canAttack = rnjesus.nextDouble() <= chanceToHit;
+		int damage = 0;
 
 		if (canAttack) {
 			damage = (int) (rnjesus.nextDouble() * (damageMax - damageMin + 1)) + damageMin;
 			opponent.subtractHitPoints(damage);
-		} // end if can attack
-		else {
-
-		} // end else
+		}
 
 		return new AttackResult(damage, canAttack);
-
 	}// end attack method
-
-//-----------------------------------------------------------------
 
 }// end class Character

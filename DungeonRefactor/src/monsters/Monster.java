@@ -1,5 +1,8 @@
 package monsters;
 
+import java.util.Random;
+
+import common.AttackResult;
 import common.DungeonCharacter;
 
 /**
@@ -10,34 +13,37 @@ import common.DungeonCharacter;
  */
 
 public abstract class Monster extends DungeonCharacter {
-	protected double chanceToHeal;
-	protected int minHeal, maxHeal;
+	private double chanceToHeal;
+	private int minHeal, maxHeal;
+	private MonsterType type;
 
 //-----------------------------------------------------------------
 	public Monster(String name, int hitPoints, int attackSpeed, double chanceToHit, double chanceToHeal, int damageMin,
-			int damageMax, int minHeal, int maxHeal) {
+			int damageMax, int minHeal, int maxHeal, MonsterType type) {
 		super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax);
 		this.chanceToHeal = chanceToHeal;
 		this.maxHeal = maxHeal;
 		this.minHeal = minHeal;
+		this.type = type;
 
 	}// end monster constructor
 
 //-----------------------------------------------------------------
-	public void heal() {
-		boolean canHeal;
-		int healPoints;
-
-		canHeal = (Math.random() <= chanceToHeal) && (hitPoints > 0);
+	public MonsterType getType() {
+		return this.type;
+	}
+	
+	public AttackResult heal() {
+		Random rnjesus = new Random();
+		boolean canHeal = (rnjesus.nextDouble() <= chanceToHeal) && (this.getHitPoints() > 0);
+		int healPoints = 0;
 
 		if (canHeal) {
-			healPoints = (int) (Math.random() * (maxHeal - minHeal + 1)) + minHeal;
+			healPoints = (int) (rnjesus.nextDouble() * (maxHeal - minHeal + 1)) + minHeal;
 			addHitPoints(healPoints);
-			System.out.println(name + " healed itself for " + healPoints + " points.\n"
-					+ "Total hit points remaining are: " + hitPoints);
-			System.out.println();
-		} // end can heal
+		}
 
+		return new AttackResult(healPoints, canHeal);
 	}// end heal method
 
 //-----------------------------------------------------------------

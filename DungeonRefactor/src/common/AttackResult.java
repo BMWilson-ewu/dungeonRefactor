@@ -12,7 +12,7 @@ public class AttackResult {
 //		this.wasCriticalHit = wasCriticalHit;
 	}
 	
-	public int getdamageDone() {
+	public int getDamageDone() {
 		return this.damageDone;
 	}
 	
