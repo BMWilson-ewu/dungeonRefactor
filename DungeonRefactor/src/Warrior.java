@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 /**
  * Title:
@@ -14,6 +14,7 @@
 
 public class Warrior extends Hero
 {
+	Scanner kb = new Scanner(System.in);
 
     public Warrior()
 	{
@@ -22,24 +23,6 @@ public class Warrior extends Hero
 
 
     }//end constructor
-
-
-	public void crushingBlow(DungeonCharacter opponent)
-	{
-		if (Math.random() <= .4)
-		{
-			int blowPoints = (int)(Math.random() * 76) + 100;
-			System.out.println(name + " lands a CRUSHING BLOW for " + blowPoints
-								+ " damage!");
-			opponent.subtractHitPoints(blowPoints);
-		}//end blow succeeded
-		else
-		{
-			System.out.println(name + " failed to land a crushing blow");
-			System.out.println();
-		}//blow failed
-
-	}//end crushingBlow method
 
 	public void attack(DungeonCharacter opponent)
 	{
@@ -62,13 +45,13 @@ public class Warrior extends Hero
 		    System.out.println("1. Attack Opponent");
 		    System.out.println("2. Crushing Blow on Opponent");
 		    System.out.print("Choose an option: ");
-		    choice = Keyboard.readInt();
+		    choice = kb.nextInt();
 
 		    switch (choice)
 		    {
 			    case 1: attack(opponent);
 			        break;
-			    case 2: crushingBlow(opponent);
+			    case 2: specialAttack(opponent);
 			        break;
 			    default:
 			        System.out.println("invalid choice!");
@@ -81,5 +64,22 @@ public class Warrior extends Hero
 		} while(numTurns > 0);
 
     }//end battleChoices method
+
+
+	@Override
+	public void specialAttack(DungeonCharacter opponent) {
+		if (Math.random() <= .4)
+		{
+			int blowPoints = (int)(Math.random() * 76) + 100;
+			System.out.println(name + " lands a CRUSHING BLOW for " + blowPoints
+								+ " damage!");
+			opponent.subtractHitPoints(blowPoints);
+		}//end blow succeeded
+		else
+		{
+			System.out.println(name + " failed to land a crushing blow");
+			System.out.println();
+		}//blow failed
+	}
 
 }//end Hero class

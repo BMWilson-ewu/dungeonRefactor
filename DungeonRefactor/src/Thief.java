@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 /**
  * Title:
@@ -11,7 +11,7 @@
 
 public class Thief extends Hero
 {
-
+	Scanner kb = new Scanner(System.in);
     public Thief()
 	{
 		super("Thief", 75, 6, .8, 20, 40, .5);
@@ -20,8 +20,39 @@ public class Thief extends Hero
 
     }//end constructor
 
-	public void surpriseAttack(DungeonCharacter opponent)
+    public void battleChoices(DungeonCharacter opponent)
 	{
+		super.battleChoices(opponent);
+		int choice;
+
+
+		do
+		{
+		    System.out.println("1. Attack Opponent");
+		    System.out.println("2. Surprise Attack");
+		    System.out.print("Choose an option: ");
+		    choice = kb.nextInt();
+
+		    switch (choice)
+		    {
+			    case 1: attack(opponent);
+			        break;
+			    case 2: specialAttack(opponent);
+			        break;
+			    default:
+			        System.out.println("invalid choice!");
+		    }//end switch
+
+			numTurns--;
+			if (numTurns > 0)
+			    System.out.println("Number of turns remaining is: " + numTurns);
+
+		} while(numTurns > 0);
+
+    }
+
+	@Override
+	public void specialAttack(DungeonCharacter opponent) {
 		double surprise = Math.random();
 		if (surprise <= .4)
 		{
@@ -37,39 +68,5 @@ public class Thief extends Hero
 		}
 		else
 		    attack(opponent);
-
-
-	}//end surpriseAttack method
-
-
-    public void battleChoices(DungeonCharacter opponent)
-	{
-		super.battleChoices(opponent);
-		int choice;
-
-
-		do
-		{
-		    System.out.println("1. Attack Opponent");
-		    System.out.println("2. Surprise Attack");
-		    System.out.print("Choose an option: ");
-		    choice = Keyboard.readInt();
-
-		    switch (choice)
-		    {
-			    case 1: attack(opponent);
-			        break;
-			    case 2: surpriseAttack(opponent);
-			        break;
-			    default:
-			        System.out.println("invalid choice!");
-		    }//end switch
-
-			numTurns--;
-			if (numTurns > 0)
-			    System.out.println("Number of turns remaining is: " + numTurns);
-
-		} while(numTurns > 0);
-
-    }
+	}
 }

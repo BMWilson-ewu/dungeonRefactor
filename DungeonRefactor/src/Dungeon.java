@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Title: Dungeon.java
  *
@@ -45,6 +47,8 @@
 */
 public class Dungeon
 {
+	
+	static Scanner kb = new Scanner(System.in);
     public static void main(String[] args)
 	{
 
@@ -69,13 +73,13 @@ this task
 	public static Hero chooseHero()
 	{
 		int choice;
-		Hero theHero; // Never used
+
 
 		System.out.println("Choose a hero:\n" +
 					       "1. Warrior\n" +
 						   "2. Sorceress\n" +
 						   "3. Thief");
-		choice = Keyboard.readInt();
+		choice = kb.nextInt();
 		
 		// Add try catch block for input validation
 
@@ -129,7 +133,7 @@ true if the user chooses to continue, false otherwise.
 		System.out.println("Play again (y/n)?");
 		
 		// Maybe pass in a scanner instead. TBD
-		again = Keyboard.readChar();
+		again = (kb.next()).charAt(0);
 
 		// Before validation use .toUpperCase() or .toLowerCase()
 		return (again == 'Y' || again == 'y');
@@ -161,7 +165,7 @@ user has the option of quitting.
 
 			//let the player bail out if desired
 			System.out.print("\n-->q to quit, anything else to continue: ");
-			pause = Keyboard.readChar();
+			pause = (kb.next()).charAt(0);
 
 		}//end battle loop
 

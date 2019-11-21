@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 /**
  * Title:
@@ -13,6 +13,7 @@
 
 public class Sorceress extends Hero
 {
+	Scanner kb = new Scanner(System.in);
 	public final int MIN_ADD = 25;
 	public final int MAX_ADD = 50;
 
@@ -23,20 +24,6 @@ public class Sorceress extends Hero
 
 
     }//end constructor
-
-//-----------------------------------------------------------------
-	public void increaseHitPoints()
-    {
-	    int hPoints;
-
-		hPoints = (int)(Math.random() * (MAX_ADD - MIN_ADD + 1)) + MIN_ADD;
-		addHitPoints(hPoints);
-		System.out.println(name + " added [" + hPoints + "] points.\n"
-							+ "Total hit points remaining are: "
-							+ hitPoints);
-		 System.out.println();
-
-    }//end increaseHitPoints method
 
 //-----------------------------------------------------------------
 	public void attack(DungeonCharacter opponent)
@@ -57,13 +44,13 @@ public class Sorceress extends Hero
 		    System.out.println("1. Attack Opponent");
 		    System.out.println("2. Increase Hit Points");
 		    System.out.print("Choose an option: ");
-		    choice = Keyboard.readInt();
+		    choice = kb.nextInt();
 
 		    switch (choice)
 		    {
 			    case 1: attack(opponent);
 			        break;
-			    case 2: increaseHitPoints();
+			    case 2: specialAttack(opponent);
 			        break;
 			    default:
 			        System.out.println("invalid choice!");
@@ -76,5 +63,17 @@ public class Sorceress extends Hero
 		} while(numTurns > 0 && hitPoints > 0 && opponent.getHitPoints() > 0);
 
     }//end overridden method
+
+	@Override
+	public void specialAttack(DungeonCharacter opponent) {
+	    int hPoints;
+
+		hPoints = (int)(Math.random() * (MAX_ADD - MIN_ADD + 1)) + MIN_ADD;
+		addHitPoints(hPoints);
+		System.out.println(name + " added [" + hPoints + "] points.\n"
+							+ "Total hit points remaining are: "
+							+ hitPoints);
+		 System.out.println();		
+	}
 
 }//end class

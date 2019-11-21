@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 /**
  * Title: Hero.java
@@ -30,6 +30,7 @@
 
 public abstract class Hero extends DungeonCharacter
 {
+	Scanner kb = new Scanner(System.in);
 	protected double chanceToBlock;
 	protected int numTurns;
 
@@ -56,7 +57,7 @@ This method is called by: hero constructor
   public void readName()
   {
 		System.out.print("Enter character name: ");
-		name = Keyboard.readString();
+		name = kb.nextLine();
   }//end readName method
 
 /*-------------------------------------------------------
@@ -122,5 +123,7 @@ This method is called by: external sources
 		System.out.println("Number of turns this round is: " + numTurns);
 
 	}//end battleChoices
+	
+	public abstract void specialAttack(DungeonCharacter opponent);
 
 }//end Hero class
