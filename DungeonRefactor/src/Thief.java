@@ -66,7 +66,9 @@ public class Thief extends Hero
 			System.out.println("Uh oh! " + opponent.getName() + " saw you and" +
 								" blocked your attack!");
 		}
-		else
-		    attack(opponent);
+		else {
+            System.out.println("The " +opponent.getName() + " saw your attack coming but you still managed to get a hit in.");
+            attack(opponent);
+        }
 	}
 }
