@@ -20,6 +20,32 @@ public class Thief extends Hero
 
     }//end constructor
 
+<<<<<<< HEAD
+=======
+	public void surpriseAttack(DungeonCharacter opponent)
+	{
+		double surprise = Math.random();
+		if (surprise <= .4)
+		{
+			System.out.println("Surprise attack was successful!\n" +
+								name + " gets an additional turn.");
+			numTurns++;
+			attack(opponent);
+		}//end surprise
+		else if (surprise >= .9)
+		{
+			System.out.println("Uh oh! " + opponent.getName() + " saw you and" +
+								" blocked your attack!");
+		}
+		else {
+			System.out.println("The " +opponent.getName() + " saw your attack coming but you still managed to get a hit in.");
+		    attack(opponent);
+		}
+
+	}//end surpriseAttack method
+
+
+>>>>>>> 40bb38d0db9e696b6a25b84bba7e677266d13796
     public void battleChoices(DungeonCharacter opponent)
 	{
 		super.battleChoices(opponent);
@@ -47,7 +73,7 @@ public class Thief extends Hero
 			if (numTurns > 0)
 			    System.out.println("Number of turns remaining is: " + numTurns);
 
-		} while(numTurns > 0);
+		} while(numTurns > 0 && opponent.isAlive());
 
     }
 
