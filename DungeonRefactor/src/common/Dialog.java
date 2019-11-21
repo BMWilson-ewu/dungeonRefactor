@@ -27,9 +27,16 @@ public class Dialog {
 	}
 
 	Hero chooseHero() {
-
 		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief");
-		int choice = Keyboard.readInt();
+		int choice;
+		do {
+			try {
+				choice = kb.nextInt();
+			} catch (Exception e) {
+				choice = 0;
+				System.out.println("Please enter a valid option.");
+			}
+		} while (choice < 1 || choice > 3);
 
 		return new HeroFactory().createHero(choice);
 
