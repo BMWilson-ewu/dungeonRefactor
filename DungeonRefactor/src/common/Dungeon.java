@@ -7,39 +7,13 @@ import heros.HeroType;
 import monsters.Monster;
 import monsters.MonsterType;
 
-/**
- * Title: Dungeon.java
- *
- * Description: Driver file for Heroes and Monsters project
- *
- * Copyright: Copyright (c) 2001 Company: Code Dogs Inc. I.M. Knurdy
- *
- * History: 11/4/2001: Wrote program --created DungeonCharacter class --created
- * Hero class --created Monster class --had Hero battle Monster --fixed attack
- * quirks (dead monster can no longer attack) --made Hero and Monster abstract
- * --created Warrior --created Ogre --made Warrior and Ogre battle --added
- * battleChoices to Hero --added special skill to Warrior --made Warrior and
- * Ogre battle --created Sorceress --created Thief --created Skeleton --created
- * Gremlin --added game play features to Dungeon.java (this file) 11/27/2001:
- * Finished documenting program version 1.0
- */
-
-/*
- * This class is the driver file for the Heroes and Monsters project. It will do
- * the following:
- * 
- * 1. Allow the user to choose a hero 2. Randomly select a monster 3. Allow the
- * hero to battle the monster
- * 
- * Once a battle concludes, the user has the option of repeating the above
- * 
- */
 public class Dungeon {
 
 	public static void main(String[] args) {
 
 		Hero theHero;
 		Monster theMonster;
+		Dialog dialog = new Dialog();
 
 		do {
 			theHero = chooseHero();
@@ -48,43 +22,25 @@ public class Dungeon {
 
 		} while (playAgain());
 
-	}// end main method
-
-	/*-------------------------------------------------------------------
-	chooseHero allows the user to select a hero, creates that hero, and
-	returns it.  It utilizes a polymorphic reference (Hero) to accomplish
-	this task
-	---------------------------------------------------------------------*/
+	}
+	
 	private static Hero chooseHero() {
-		int choice;
-	//	Hero theHero; // Never used TODO delete this token
 
 		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief");
-		choice = Keyboard.readInt();
+		int choice = Keyboard.readInt();
 
-		// Add try catch block for input validation
 
 		return new HeroFactory().createHero(choice);
 
-	}// end chooseHero method
+	}
 
-	/*-------------------------------------------------------------------
-	generateMonster randomly selects a Monster and returns it.  It utilizes
-	a polymorphic reference (Monster) to accomplish this task.
-	---------------------------------------------------------------------*/
 	private static Monster generateMonster() {
-		int choice;
 
-		// Use different library to get random Int?
-		choice = (int) (Math.random() * 3) + 1;
+		int choice = (int) (Math.random() * 3) + 1;
 
 		return new MonsterFactory().createMonster(choice);
-	}// end generateMonster method
-
-	/*-------------------------------------------------------------------
-	playAgain allows gets choice from user to play another game.  It returns
-	true if the user chooses to continue, false otherwise.
-	---------------------------------------------------------------------*/
+	}
+	
 	private static boolean playAgain() {
 		char again; // assign a value, "" for blank
 

@@ -9,6 +9,7 @@ import heros.Warrior;
 public class HeroFactory {
 
 	public Hero createHero(int choice) {
+		
 		String name;
 		int hitPoints;
 		int attackSpeed;
