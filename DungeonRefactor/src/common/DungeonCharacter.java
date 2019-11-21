@@ -28,17 +28,14 @@ import java.util.Random;
  * @version 1.0
  */
 
-public abstract class DungeonCharacter implements Comparable {
+public abstract class DungeonCharacter {
 	// TODO remove comparable because it was never used
 	private String name;
 	private int hitPoints;
 	private int attackSpeed;
 	private double chanceToHit;
-	private int damageMin, damageMax;
-
-	public int compareTo(Object o) {
-		return 1;
-	}
+	private int damageMin;
+	private int damageMax;
 
 //-----------------------------------------------------------------
 //explicit constructor to initialize instance variables -- it is called
@@ -81,13 +78,8 @@ public abstract class DungeonCharacter implements Comparable {
 	---------------------------------------------------------*/
 	public void addHitPoints(int hitPoints) {
 		if (hitPoints <= 0)
-			// TODO remove this printline with a exception.
-			System.out.println("Hitpoint amount must be positive.");
-		else {
-			this.hitPoints += hitPoints;
-			// System.out.println("Remaining Hit Points: " + hitPoints);
-
-		}
+			new IllegalArgumentException("Hit Points should not be zero or less.");
+		this.hitPoints += hitPoints;
 	}// end addHitPoints method
 
 	/*-------------------------------------------------------
@@ -102,7 +94,7 @@ public abstract class DungeonCharacter implements Comparable {
 	This method is called by: overridden versions in Hero and Monster
 	---------------------------------------------------------*/
 	public void subtractHitPoints(int hitPoints) {
-		// Why state hit points must be positive?
+		throw new IllegalArgumentException("Hit Points lost must be positive.");
 		if (hitPoints < 0)
 			System.out.println("Hitpoint amount must be positive.");
 		else if (hitPoints > 0) {

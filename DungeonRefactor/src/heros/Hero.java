@@ -29,7 +29,7 @@ import common.DungeonCharacter;
 
 public abstract class Hero extends DungeonCharacter {
 
-	protected double chanceToBlock;
+	private double chanceToBlock;
 	private int numTurns;
 	private HeroType type;
 
