@@ -9,9 +9,7 @@ public class Sorceress extends Hero {
 
 	public Sorceress(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
 			double chanceToBlock, HeroType type) {
-		super(name, hitPoints, attackSpeed, chanceToHit,
-				damageMin, damageMax, chanceToBlock, type);
-
+		super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, chanceToBlock, type);
 	}
 
 	@Override

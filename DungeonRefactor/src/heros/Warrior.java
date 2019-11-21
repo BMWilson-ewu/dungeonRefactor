@@ -3,22 +3,12 @@ package heros;
 import common.AttackResult;
 import common.DungeonCharacter;
 
-/**
- * Title: Description: Copyright: Copyright (c) 2001 Company:
- * 
- * @author
- * @version 1.0
- */
-
 public class Warrior extends Hero {
 
 	public Warrior(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
 			double chanceToBlock, HeroType type) {
-
-		super(name, hitPoints, attackSpeed, chanceToHit,
-				damageMin, damageMax, chanceToBlock, type);
-
-	}// end constructor
+		super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, chanceToBlock, type);
+	}
 
 	@Override
 	public AttackResult specialAttack(DungeonCharacter opponent) {
@@ -31,4 +21,4 @@ public class Warrior extends Hero {
 		return new AttackResult(damage, couldAttack);
 	}
 
-}// end Hero class
+}
