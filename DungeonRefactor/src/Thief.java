@@ -35,9 +35,10 @@ public class Thief extends Hero
 			System.out.println("Uh oh! " + opponent.getName() + " saw you and" +
 								" blocked your attack!");
 		}
-		else
+		else {
+			System.out.println("The " +opponent.getName() + " saw your attack coming but you still managed to get a hit in.");
 		    attack(opponent);
-
+		}
 
 	}//end surpriseAttack method
 
@@ -69,7 +70,7 @@ public class Thief extends Hero
 			if (numTurns > 0)
 			    System.out.println("Number of turns remaining is: " + numTurns);
 
-		} while(numTurns > 0);
+		} while(numTurns > 0 && opponent.isAlive());
 
     }
 }

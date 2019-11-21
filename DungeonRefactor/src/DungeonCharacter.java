@@ -33,7 +33,7 @@
  * @version 1.0
  */
 
-public abstract class DungeonCharacter implements Comparable
+public abstract class DungeonCharacter
 {
 
 	protected String name;
@@ -41,11 +41,6 @@ public abstract class DungeonCharacter implements Comparable
 	protected int attackSpeed;
 	protected double chanceToHit;
 	protected int damageMin, damageMax;
-
-	public int compareTo(Object o)
-	{
-		return 1;
-	}
 
 //-----------------------------------------------------------------
 //explicit constructor to initialize instance variables -- it is called
