@@ -57,11 +57,11 @@ public class Warrior extends Hero
 			        System.out.println("invalid choice!");
 		    }//end switch
 
-			numTurns--;
-			if (numTurns > 0)
-			    System.out.println("Number of turns remaining is: " + numTurns);
+			this.decrementTurns();
+			if (this.getnumTurns() > 0)
+			    System.out.println("Number of turns remaining is: " + this.getnumTurns());
 
-		} while(numTurns > 0 && opponent.isAlive());
+		} while(this.getnumTurns() > 0 && opponent.isAlive());
 
     }//end battleChoices method
 

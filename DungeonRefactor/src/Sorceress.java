@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class Sorceress extends Hero
 {
 	Scanner kb = new Scanner(System.in);
-	public final int MIN_ADD = 25;
-	public final int MAX_ADD = 50;
+	private final int MIN_ADD = 25;
+	private final int MAX_ADD = 50;
 
 //-----------------------------------------------------------------
     public Sorceress()
@@ -56,11 +56,11 @@ public class Sorceress extends Hero
 			        System.out.println("invalid choice!");
 		    }//end switch
 
-			numTurns--;
-		    if (numTurns > 0)
-			    System.out.println("Number of turns remaining is: " + numTurns);
+			this.decrementTurns();
+		    if (this.getnumTurns() > 0)
+			    System.out.println("Number of turns remaining is: " + this.getnumTurns());
 
-		} while(numTurns > 0 && hitPoints > 0 && opponent.isAlive());
+		} while(this.getnumTurns() > 0 && hitPoints > 0 && opponent.isAlive());
 
     }//end overridden method
 

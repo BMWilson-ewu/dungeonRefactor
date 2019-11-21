@@ -31,8 +31,8 @@ import java.util.Scanner;
 public abstract class Hero extends DungeonCharacter
 {
 	Scanner kb = new Scanner(System.in);
-	protected double chanceToBlock;
-	protected int numTurns;
+	private double chanceToBlock;
+	private int numTurns;
 
 //-----------------------------------------------------------------
 //calls base constructor and gets name of hero from user
@@ -43,6 +43,22 @@ public abstract class Hero extends DungeonCharacter
 	super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax);
 	this.chanceToBlock = chanceToBlock;
 	readName();
+  }
+  
+  public double getBlockChance() {
+	  return this.chanceToBlock;
+  }
+  
+  public int getnumTurns() {
+	  return this.numTurns;
+  }
+  
+  public void incrementTurns() {
+	  this.numTurns++;
+  }
+  
+  public void decrementTurns() {
+	  this.numTurns--;
   }
 
 /*-------------------------------------------------------
