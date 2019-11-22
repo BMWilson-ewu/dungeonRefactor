@@ -1,4 +1,4 @@
-
+import weapons.Weapon;
 
 /**
  * Title: DungeonCharacter.java
@@ -33,7 +33,13 @@
  * @version 1.0
  */
 
-public abstract class DungeonCharacter implements Comparable
+/*
+ * BW change logs
+ * Moving numTurns to DungeonCharacter, may add faster faster enemies later
+ * added get and set methods for numTurns
+ */
+
+public abstract class DungeonCharacter
 {
 
 	protected String name;
@@ -41,17 +47,14 @@ public abstract class DungeonCharacter implements Comparable
 	protected int attackSpeed;
 	protected double chanceToHit;
 	protected int damageMin, damageMax;
-
-	public int compareTo(Object o)
-	{
-		return 1;
-	}
+	private int numTurns;
+	private Weapon weapon;
 
 //-----------------------------------------------------------------
 //explicit constructor to initialize instance variables -- it is called
 // by derived classes
 	public DungeonCharacter(String name, int hitPoints, int attackSpeed,
-				     double chanceToHit, int damageMin, int damageMax)
+				     double chanceToHit, int damageMin, int damageMax, Weapon w)
 	{
 
 		this.name = name;
@@ -60,6 +63,7 @@ public abstract class DungeonCharacter implements Comparable
 		this.chanceToHit = chanceToHit;
 		this.damageMin = damageMin;
 		this.damageMax = damageMax;
+		this.weapon = w;
 
 	}//end constructor
 
@@ -79,6 +83,10 @@ public abstract class DungeonCharacter implements Comparable
 	{
 		return attackSpeed;
 	}//end getAttackSpeed
+//-----------------------------------------------------------------
+	public int getTurns() {
+		return this.numTurns;
+	}
 
 
 /*-------------------------------------------------------
@@ -115,16 +123,14 @@ This method is called by: overridden versions in Hero and Monster
 ---------------------------------------------------------*/
 	public void subtractHitPoints(int hitPoints)
 	{
-		// Why state hit points must be positive?
 		if (hitPoints < 0)
 			System.out.println("Hitpoint amount must be positive.");
-		else if (hitPoints > 0)
+		else if (hitPoints >0)
 		{
 			this.hitPoints -= hitPoints;
 			if (this.hitPoints < 0)
 				this.hitPoints = 0;
-			System.out.println(getName() + " hit " +
-								" for <" + hitPoints + "> points damage.");
+			System.out.println(getName() + " takes <" + hitPoints + "> points of damage.");
 			System.out.println(getName() + " now has " +
 								getHitPoints() + " hit points remaining.");
 			System.out.println();
@@ -167,16 +173,14 @@ hero classes and externally
 		boolean canAttack;
 		int damage;
 
-		canAttack = Math.random() <= chanceToHit; // change chance to hit to int?
+		canAttack = Math.random() <= chanceToHit;
 
-		// Use nextInt() instead of Math.Random
 		if (canAttack)
 		{
 			damage = (int)(Math.random() * (damageMax - damageMin + 1))
 						+ damageMin ;
+			System.out.println(getName() + " " + weapon.attackDesc() + " " + opponent.getName() + "!");
 			opponent.subtractHitPoints(damage);
-
-
 
 			System.out.println();
 		}//end if can attack
@@ -190,7 +194,15 @@ hero classes and externally
 
 	}//end attack method
 
+/*----------------------------------------------------------------
+
+----------------------------------------------------------------*/
+	public void setTurns(int turns) {
+		this.numTurns = turns;
+	}
+	
 //-----------------------------------------------------------------
+	
 
 
 

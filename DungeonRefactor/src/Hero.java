@@ -1,4 +1,6 @@
+import java.util.Scanner;
 
+import weapons.Weapon;
 
 /**
  * Title: Hero.java
@@ -27,21 +29,40 @@
  * @version 1.0
  */
 
+/*
+ * 
+ */
 
-public abstract class Hero extends DungeonCharacter
+public class Hero extends DungeonCharacter
 {
-	protected double chanceToBlock;
-	protected int numTurns;
-
+	private double chanceToBlock;
+	private SpecialAbility special;
+	
 //-----------------------------------------------------------------
 //calls base constructor and gets name of hero from user
   public Hero(String name, int hitPoints, int attackSpeed,
 				     double chanceToHit, int damageMin, int damageMax,
-					 double chanceToBlock)
+					 double chanceToBlock, SpecialAbility sp, Weapon w)
   {
-	super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax);
+	super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, w);
+	this.special = sp;
 	this.chanceToBlock = chanceToBlock;
-	readName();
+  }
+  
+  /*
+   * Adding special ability
+   */
+  
+  public void special(DungeonCharacter enemy) {
+	  special.special(this, enemy);
+  }
+  
+  /*
+   * Adding special description fetch method
+   */
+  
+  public String readSpecial() {
+	  return special.specialDesc();
   }
 
 /*-------------------------------------------------------
@@ -53,10 +74,10 @@ Returns: nothing
 This method calls: nothing
 This method is called by: hero constructor
 ---------------------------------------------------------*/
-  public void readName()
+  public void readName(Scanner kin)
   {
 		System.out.print("Enter character name: ");
-		name = Keyboard.readString();
+		name = kin.nextLine();
   }//end readName method
 
 /*-------------------------------------------------------
@@ -111,7 +132,9 @@ Returns: nothing
 
 This method calls: getAttackSpeed()
 This method is called by: external sources
----------------------------------------------------------*/
+BWilson:
+	Deprecated this method, it serves no purpose now
+---------------------------------------------------------
 	public void battleChoices(DungeonCharacter opponent)
 	{
 	    numTurns = attackSpeed/opponent.getAttackSpeed();
@@ -121,6 +144,6 @@ This method is called by: external sources
 
 		System.out.println("Number of turns this round is: " + numTurns);
 
-	}//end battleChoices
+	}//end battleChoices*/
 
 }//end Hero class
