@@ -1,3 +1,6 @@
+package specials;
+import entities.DungeonCharacter;
+
 public class SneakAttack implements SpecialAbility {
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {
 		double surprise = Math.random();

@@ -1,3 +1,6 @@
+package specials;
+import entities.DungeonCharacter;
+
 public class CrushingBlow implements SpecialAbility {
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {
 		if (Math.random() <= .4) {

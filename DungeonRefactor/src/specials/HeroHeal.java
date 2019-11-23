@@ -1,3 +1,6 @@
+package specials;
+import entities.DungeonCharacter;
+
 public class HeroHeal implements SpecialAbility {
 
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {

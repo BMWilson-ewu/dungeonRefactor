@@ -1,3 +1,4 @@
+package entities;
 import weapons.Club;
 import weapons.Kris;
 import weapons.RustyBlade;

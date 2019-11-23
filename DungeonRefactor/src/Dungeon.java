@@ -1,5 +1,10 @@
 import java.util.*;
 
+import entities.Hero;
+import entities.HeroFactory;
+import entities.Monster;
+import entities.MonsterFactory;
+
 public class Dungeon {
 	public static void main(String[] args) {
 

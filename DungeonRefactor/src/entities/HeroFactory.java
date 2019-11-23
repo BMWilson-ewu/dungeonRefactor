@@ -1,3 +1,7 @@
+package entities;
+import specials.CrushingBlow;
+import specials.HeroHeal;
+import specials.SneakAttack;
 import weapons.Dagger;
 import weapons.FireStaff;
 import weapons.GreatSword;

@@ -1,5 +1,7 @@
+package entities;
 import java.util.Scanner;
 
+import specials.SpecialAbility;
 import weapons.Weapon;
 
 public class Hero extends DungeonCharacter {

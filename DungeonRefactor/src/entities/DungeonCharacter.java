@@ -1,3 +1,4 @@
+package entities;
 import weapons.Weapon;
 
 public abstract class DungeonCharacter {

@@ -1,3 +1,4 @@
+package entities;
 import weapons.Weapon;
 
 public class Monster extends DungeonCharacter {
