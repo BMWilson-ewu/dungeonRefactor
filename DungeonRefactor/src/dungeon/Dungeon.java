@@ -1,3 +1,4 @@
+package dungeon;
 import java.util.*;
 
 import entities.Hero;
