@@ -12,7 +12,9 @@ public class Dungeon {
 		Hero theHero;
 		Monster theMonster;
 		Scanner kin = new Scanner(System.in);
-
+		
+		//DungeonAdventure.Intro();
+		//System.out.println();
 		do {
 			theHero = chooseHero(kin);
 			theMonster = generateMonster();
@@ -132,7 +134,7 @@ public class Dungeon {
 
 		} while (theHero.isAlive() && theMonster.isAlive() && !pause.equals("q"));
 
-		if (!theMonster.isAlive())
+		if (!theMonster.isAlive()) 
 			System.out.println(theHero.getName() + " was victorious!");
 		else if (!theHero.isAlive())
 			System.out.println(theHero.getName() + " was defeated :-(");
