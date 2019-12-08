@@ -39,9 +39,25 @@ public abstract class DungeonCharacter {
 	public int getAttackSpeed() {
 		return attackSpeed;
 	}
+	
+	public double getChanceToHit() {
+		return this.chanceToHit;
+	}
+	
+	public int getMinDamage() {
+		return this.damageMin;
+	}
+
+	public int getMaxDamage() {
+		return this.damageMax;
+	}
 
 	public int getTurns() {
 		return this.numTurns;
+	}
+	
+	public Weapon getWeapon() {
+		return this.weapon;
 	}
 
 	public void addHitPoints(int hitPoints) {
@@ -73,26 +89,6 @@ public abstract class DungeonCharacter {
 
 	public boolean isAlive() {
 		return (hitPoints > 0);
-	}
-
-	public void attack(DungeonCharacter opponent) {
-		boolean canAttack;
-		int damage;
-
-		canAttack = Math.random() <= chanceToHit;
-
-		if (canAttack) {
-			damage = (int) (Math.random() * (damageMax - damageMin + 1)) + damageMin;
-			System.out.println(getName() + " " + weapon.attackDesc() + " " + opponent.getName() + "!");
-			opponent.subtractHitPoints(damage);
-
-			System.out.println();
-		} else {
-
-			System.out.println(getName() + "'s attack on " + opponent.getName() + " failed!");
-			System.out.println();
-		}
-
 	}
 
 	public void setTurns(int turns) {
