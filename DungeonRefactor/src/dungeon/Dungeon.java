@@ -5,6 +5,7 @@ import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
+import weapons.AttackPool;
 
 public class Dungeon {
 	public static void main(String[] args) {
@@ -121,7 +122,7 @@ public class Dungeon {
 				}
 
 				if (option == 1) {
-					theHero.attack(theMonster);
+					AttackPool.getInstanceOf().getbasicAttack().attack(theHero, theMonster);
 				} else if (option == 2) {
 					theHero.special(theMonster);
 				} else {
@@ -135,7 +136,7 @@ public class Dungeon {
 			kin.nextLine();
 
 			if (theMonster.isAlive()) {
-				theMonster.attack(theHero);
+				AttackPool.getInstanceOf().getbasicAttack().attack(theMonster, theHero);
 
 				System.out.print("\n-->q to quit, anything else to continue: ");
 				pause = kin.nextLine();

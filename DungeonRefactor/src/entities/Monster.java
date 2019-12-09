@@ -1,4 +1,5 @@
 package entities;
+import weapons.AttackPool;
 import weapons.Weapon;
 
 public class Monster extends DungeonCharacter {
@@ -14,25 +15,22 @@ public class Monster extends DungeonCharacter {
 		this.minHeal = minHeal;
 
 	}
-
-	private void heal() {
-		boolean canHeal;
-		int healPoints;
-
-		canHeal = (Math.random() <= chanceToHeal) && (this.getHitPoints() > 0);
-
-		if (canHeal) {
-			healPoints = (int) (Math.random() * (maxHeal - minHeal + 1)) + minHeal;
-			addHitPoints(healPoints);
-			System.out.println(this.getName() + " healed itself for " + healPoints + " points.\n"
-					+ "Total hit points remaining are: " + this.getHitPoints());
-			System.out.println();
-		}
+	
+	public double getChanceToHeal() {
+		return this.chanceToHeal;
+	}
+	
+	public int getMinHeal() {
+		return this.minHeal;
+	}
+	
+	public int getMaxHeal() {
+		return this.maxHeal;
 	}
 
 	public void subtractHitPoints(int hitPoints) {
 		super.subtractHitPoints(hitPoints);
-		heal();
+		AttackPool.getInstanceOf().getBasicHeal().heal(this);
 	}
 
 }
