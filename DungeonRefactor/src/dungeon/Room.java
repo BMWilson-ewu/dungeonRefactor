@@ -2,11 +2,15 @@ package dungeon;
 import java.util.ArrayList;
 import java.util.Random;
 
+import entities.Monster;
+
 public class Room {
 	private String top;
 	private String mid;
 	private String bot;
-	private ArrayList<Object> items;
+	private ArrayList<RoomItem> items;
+	private Monster m;
+	private RoomItem uniqueItem;
 	private double healPotChance;
 	private double visPotChance;
 	private double trapChance;
@@ -15,7 +19,9 @@ public class Room {
 		top = "* * *";
 		mid = "* E *";
 		bot = "* * *";
-		items = new ArrayList<Object>();
+		items = new ArrayList<RoomItem>();
+		m = null;
+		uniqueItem = null;
 		healPotChance = .1;
 		visPotChance = .1;
 		trapChance = .1;
@@ -52,15 +58,19 @@ public class Room {
 		}
 	}
 	
-	public void populateRoom(Room[][] dungeon, int x, int y, Object uniqueItem) {
+	public void populateRoom(Room[][] dungeon, int x, int y) {
 		buildRoom(dungeon, x, y);
-		items.add(uniqueItem);
-		if(!(uniqueItem instanceof Entrance) && !(uniqueItem instanceof Exit)) {
+		if(uniqueItem == null) {
 			Random rng = new Random();
 			double chance = rng.nextDouble();
 			if(chance < healPotChance) {
-				
+				items.add(new HealPot());
 			}
+			chance = rng.nextDouble();
+			if(chance < visPotChance) {
+				items.add(new VisionPot());
+			}
+			chance = rng.nextDouble();
 		}
 		
 	}
@@ -69,6 +79,17 @@ public class Room {
 		return top + "\n" + mid + "\n" + bot;
 	}
 	
+	public String getTop() {
+		return this.top;
+	}
+	public String getMid() {
+		return this.mid;
+	}
+	public String getBot() {
+		return this.bot;
+	}
+	
+	//TODO Remove this main
 	public static void main(String[] args) {
 		
 		Room r = new Room();

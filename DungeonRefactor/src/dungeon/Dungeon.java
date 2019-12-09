@@ -7,6 +7,20 @@ import entities.Monster;
 import entities.MonsterFactory;
 
 public class Dungeon {
+	
+	private Room[][] dungeonArray;
+	
+	public Dungeon(int x, int y) {
+		dungeonArray = new Room[y][x];
+		for(int i = 0; i < y; i++) {
+			for(int j = 0; j < x; j++) {
+				dungeonArray[i][j] = new Room();
+			}
+		}
+	}
+	
+	
+	
 	public static void main(String[] args) {
 
 		Hero theHero;
@@ -139,6 +153,28 @@ public class Dungeon {
 		else
 			System.out.println("Quitters never win ;-)");
 
+	}
+	
+	
+	
+	public String toString() {
+		
+		String dungeonString = "";
+		for(int i = 0; i < dungeonArray.length; i++) {
+			for(int j = 0; j < 3; j++) {
+				for(int k = 0; k < dungeonArray[0].length; k++) {
+					if(j == 0) {
+						dungeonString += dungeonArray[i][k].getTop() + " ";
+					} else if(j == 1) {
+						dungeonString += dungeonArray[i][k].getMid() + " ";
+					} else if(j == 2) {
+						dungeonString += dungeonArray[i][k].getBot() + " ";
+					}
+				}
+				dungeonString += "\n";
+			}
+		}
+		return dungeonString;
 	}
 
 }
