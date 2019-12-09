@@ -1,3 +1,4 @@
+package dungeon;
 import java.util.*;
 
 import entities.Hero;
@@ -11,7 +12,9 @@ public class Dungeon {
 		Hero theHero;
 		Monster theMonster;
 		Scanner kin = new Scanner(System.in);
-
+		
+		//DungeonAdventure.Intro();
+		//System.out.println();
 		do {
 			theHero = chooseHero(kin);
 			theMonster = generateMonster();
@@ -26,7 +29,7 @@ public class Dungeon {
 		HeroFactory h = new HeroFactory();
 		Hero toRet;
 
-		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief");
+		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief\n" + "4. Paladin\n" +"5. Ranger");
 		try {
 			choice = kin.nextInt();
 		} catch (InputMismatchException e) {
@@ -40,6 +43,10 @@ public class Dungeon {
 			toRet = h.createHero("Sorceress");
 		} else if (choice == 3) {
 			toRet = h.createHero("Thief");
+		} else if(choice == 4) {
+			toRet = h.createHero("Paladin");
+		} else if(choice == 5) {
+			toRet = h.createHero("Ranger");
 		} else {
 			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
 			return chooseHero(kin);
@@ -55,7 +62,7 @@ public class Dungeon {
 		int choice;
 		MonsterFactory m = new MonsterFactory();
 
-		choice = (int) (Math.random() * 3) + 1;
+		choice = (int) (Math.random() * 5) + 1;
 
 		switch (choice) {
 		case 1:
@@ -66,6 +73,12 @@ public class Dungeon {
 
 		case 3:
 			return m.createMonster("Skeleton");
+			
+		case 4:
+			return m.createMonster("Minotuar");
+			
+		case 5:
+			return m.createMonster("Bugbear");
 
 		default:
 			System.out.println("invalid choice, returning Skeleton");
@@ -131,7 +144,7 @@ public class Dungeon {
 
 		} while (theHero.isAlive() && theMonster.isAlive() && !pause.equals("q"));
 
-		if (!theMonster.isAlive())
+		if (!theMonster.isAlive()) 
 			System.out.println(theHero.getName() + " was victorious!");
 		else if (!theHero.isAlive())
 			System.out.println(theHero.getName() + " was defeated :-(");
