@@ -1,4 +1,4 @@
-package specials;
+package abilities;
 
 import entities.Monster;
 

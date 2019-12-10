@@ -1,7 +1,10 @@
-package specials;
+package abilities;
+
 import entities.DungeonCharacter;
+import enums.Abilities;
 
 public class CrushingBlow implements SpecialAbility {
+
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {
 		if (Math.random() <= .4) {
 			int damage = (int) (Math.random() * 76) + 100;
@@ -16,4 +19,9 @@ public class CrushingBlow implements SpecialAbility {
 	public String specialDesc() {
 		return "Crushing Blow";
 	}
+
+	public Abilities getKey() {
+		return Abilities.CrushingBlow;
+	}
+
 }

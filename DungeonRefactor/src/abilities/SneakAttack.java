@@ -1,7 +1,7 @@
-package specials;
+package abilities;
 
 import entities.DungeonCharacter;
-import weapons.AttackPool;
+import enums.Abilities;
 
 public class SneakAttack implements SpecialAbility {
 
@@ -11,8 +11,7 @@ public class SneakAttack implements SpecialAbility {
 			System.out.println("Surprise attack was successful!\n" + source.getName() + " gets an additional turn.");
 			source.setTurns(source.getTurns() + 1);
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
-		} // end surprise
-		else if (surprise >= .9) {
+		} else if (surprise >= .9) {
 			System.out.println("Uh oh! " + enemy.getName() + " saw you and" + " blocked your attack!");
 		} else
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
@@ -21,4 +20,9 @@ public class SneakAttack implements SpecialAbility {
 	public String specialDesc() {
 		return "Sneak Attack";
 	}
+
+	public Abilities getKey() {
+		return Abilities.SneakAttack;
+	}
+
 }
