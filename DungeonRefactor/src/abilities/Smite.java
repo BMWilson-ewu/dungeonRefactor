@@ -1,11 +1,9 @@
 package abilities;
 
 import entities.DungeonCharacter;
-<<<<<<< HEAD:DungeonRefactor/src/specials/Smite.java
-import weapons.AttackPool;
-=======
+
 import enums.Abilities;
->>>>>>> eca2a7e2f5cdb6fa46fdd60fdb851970ad0e273c:DungeonRefactor/src/abilities/Smite.java
+
 
 public class Smite implements SpecialAbility {
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {
@@ -13,12 +11,9 @@ public class Smite implements SpecialAbility {
 		if (smite <= .4) {
 			int damage = (int) (Math.random() * 88);
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
-<<<<<<< HEAD:DungeonRefactor/src/specials/Smite.java
-			System.out.println(source.getName() + " SMITES the with his attack " + enemy.getName() + " for " + damage + " extra damage!");
-=======
 			System.out.println(source.getName() + " SMITES the with his attack" + enemy.getName() + " for " + damage
 					+ " extra damage!");
->>>>>>> eca2a7e2f5cdb6fa46fdd60fdb851970ad0e273c:DungeonRefactor/src/abilities/Smite.java
+
 			enemy.subtractHitPoints(damage);
 		} else if (smite >= .9) {
 			System.out.println(source.getName() + " failed to land the attack!");
