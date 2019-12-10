@@ -2,6 +2,7 @@ package dungeon;
 import java.util.ArrayList;
 import java.util.Random;
 
+import entities.Hero;
 import entities.Monster;
 
 public class Room {
@@ -53,12 +54,32 @@ public class Room {
 				mid = mid.substring(0, dungeon[0].length - 1) + "|";
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Invalid index passed to buildRoom...x=" + x + ", y=" + y);
-			e.printStackTrace();
+			/*System.out.println("Invalid index passed to buildRoom...x=" + x + ", y=" + y);
+			e.printStackTrace();*/
 		}
 	}
 	
-	public void populateRoom(Room[][] dungeon, int x, int y) {
+	public boolean setUnique(RoomItem item) {
+		if(this.uniqueItem == null) {
+			this.uniqueItem = item;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public String interactUnique(Hero h) {
+		if(uniqueItem != null) {
+			RoomItem item = this.uniqueItem;
+			uniqueItem = null;
+			return item.interact(h); 
+		} else {
+			return "";
+		}
+	}
+	
+	//this method should be called after setUnique and setMonster to work properly 
+	public void populateRoomItems(Room[][] dungeon, int x, int y) {
 		buildRoom(dungeon, x, y);
 		if(uniqueItem == null) {
 			Random rng = new Random();
@@ -71,8 +92,45 @@ public class Room {
 				items.add(new VisionPot());
 			}
 			chance = rng.nextDouble();
+			if(chance < trapChance) {
+				items.add(new RoomTrap("pit"));
+			}
+		}
+		setLetter();
+	}
+	
+	private void setLetter() {
+		String letter = "";
+		if(this.uniqueItem != null) {
+			letter += this.uniqueItem.getAbbreviation();
+		}
+		if(this.m != null) {
+			letter += "X";
+		}
+		for(RoomItem item: this.items) {
+			letter += item.getAbbreviation();
 		}
 		
+		if(letter.length() > 1) {
+			this.mid = "* M *";
+		} else if(letter.length() == 1) {
+			this.mid = "* " + letter + " *";
+		}
+	}
+	
+	public boolean setMonster(Monster m) {
+		if(this.m == null && this.uniqueItem == null) {
+			this.m = m;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Monster getMonster() {
+		Monster toRet = this.m;
+		this.m = null;
+		return toRet;
 	}
 	
 	public String toString() {
@@ -88,16 +146,4 @@ public class Room {
 	public String getBot() {
 		return this.bot;
 	}
-	
-	//TODO Remove this main
-	public static void main(String[] args) {
-		
-		Room r = new Room();
-		Room[][] dungeon = new Room[5][5];
-		
-		r.buildRoom(dungeon, 4, 5);
-		System.out.println(r);
-	}
-	
-	
 }

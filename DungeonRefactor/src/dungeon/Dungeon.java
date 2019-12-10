@@ -11,13 +11,44 @@ public class Dungeon {
 	
 	private Room[][] dungeonArray;
 	
-	public Dungeon(int x, int y) {
+	public Dungeon(int x, int y, int monsters) {
 		dungeonArray = new Room[y][x];
 		for(int i = 0; i < y; i++) {
 			for(int j = 0; j < x; j++) {
 				dungeonArray[i][j] = new Room();
 			}
 		}
+		//populate unique items
+		ArrayList<RoomItem> unique = generateUniques();
+		for(RoomItem u: unique) {
+			boolean placed = false;
+			while(!placed) {
+				int roomY = (int)(Math.random() * y);
+				int roomX = (int)(Math.random() * x);
+				placed = dungeonArray[roomY][roomX].setUnique(u);
+			}
+		}
+		
+		//populate monsters
+		ArrayList<Monster> mon = generateMonsterList(monsters);
+		for(Monster m: mon) {
+			boolean placed = false;
+			while(!placed) {
+				int roomY = (int)(Math.random() * y);
+				int roomX = (int)(Math.random() * x);
+				placed = dungeonArray[roomY][roomX].setMonster(m);
+			}
+		}
+		
+		//build rooms w/ proper abbreviations
+		for(int i = 0; i < y; i++) {
+			for(int j = 0; j < x; j++) {
+				dungeonArray[i][j].populateRoomItems(dungeonArray, x, y);
+			}
+		}
+		
+		
+		
 	}
 	
 	
@@ -168,7 +199,25 @@ public class Dungeon {
 
 	}
 	
+	private ArrayList<Monster> generateMonsterList(int num){
+		ArrayList<Monster> group = new ArrayList<Monster>();
+		for(int i = 0; i < num; i++) {
+			group.add(generateMonster());
+		}
+		return group;
+	}
 	
+	private ArrayList<RoomItem> generateUniques(){
+		ArrayList<RoomItem> items = new ArrayList<RoomItem>();
+		items.add(new Entrance());
+		items.add(new Exit());
+		items.add(new PillarItem("Abstraction"));
+		items.add(new PillarItem("Encapsulation"));
+		items.add(new PillarItem("Inheritance"));
+		items.add(new PillarItem("Polymorphism"));
+		
+		return items;
+	}
 	
 	public String toString() {
 		
