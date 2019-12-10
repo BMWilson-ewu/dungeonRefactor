@@ -45,7 +45,7 @@ public class Hero extends DungeonCharacter {
 		return count;
 	}
 	
-	public int getNumVision() {
+	private int getNumVision() {
 		int count = 0;
 		for(Items item: items) {
 			if(item == Items.VisionPotion) {
@@ -68,7 +68,7 @@ public class Hero extends DungeonCharacter {
 		}
 	}
 
-	public void consumeVision(/* Room[][] dungeon */) {
+	public void consumeVision() {
 		for(Items item: items) {
 			if(item == Items.VisionPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));

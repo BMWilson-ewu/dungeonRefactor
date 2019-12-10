@@ -74,14 +74,23 @@ public class AttackPool {
 	}
 
 	public SpecialAbility getSpecialAbility(Abilities ability) {
+		if(ability == null) {
+			throw new IllegalArgumentException("Abilities type was null");
+		}
 		return this.specialAbility.get(ability);
 	}
 
 	public Weapon getWeapon(Weapons weapon) {
+		if(weapon == null) {
+			throw new IllegalArgumentException("Weapons type was null");
+		}
 		return this.weapons.get(weapon);
 	}
 
 	public Item getItem(Items item) {
+		if(item == null) {
+			throw new IllegalArgumentException("Items type was null");
+		}
 		return items.get(item);
 	}
 

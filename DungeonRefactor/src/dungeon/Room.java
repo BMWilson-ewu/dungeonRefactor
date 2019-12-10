@@ -3,20 +3,19 @@ package dungeon;
 import java.util.ArrayList;
 import java.util.Random;
 
+import abilities.AttackPool;
 import entities.Hero;
 import entities.Monster;
-import items.HealPot;
-import items.Item;
-import items.Pit;
-import items.VisionPot;
+import enums.Items;
 
 public class Room {
+
 	private String top;
 	private String mid;
 	private String bot;
-	private ArrayList<Item> items;
+	private ArrayList<Items> items;
 	private Monster m;
-	private Item uniqueItem;
+	private Items uniqueItem;
 	private double healPotChance;
 	private double visPotChance;
 	private double trapChance;
@@ -25,18 +24,13 @@ public class Room {
 		top = "* * *";
 		mid = "* E *";
 		bot = "* * *";
-		items = new ArrayList<Item>();
+		items = new ArrayList<Items>();
 		m = null;
 		uniqueItem = null;
 		healPotChance = .1;
 		visPotChance = .1;
 		trapChance = .1;
 	}
-
-	/*
-	 * public void setTop(String s) { this.top = s; } public void setMid(String s) {
-	 * this.mid = s; } public void setBot(String s) { this.top = s; }
-	 */
 
 	public void buildRoom(Room[][] dungeon, int x, int y) {
 		try {
@@ -61,7 +55,7 @@ public class Room {
 		}
 	}
 
-	public boolean setUnique(Item item) {
+	public boolean setUnique(Items item) {
 		if (this.uniqueItem == null) {
 			this.uniqueItem = item;
 			return true;
@@ -72,9 +66,10 @@ public class Room {
 
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
-			Item item = this.uniqueItem;
-			uniqueItem = null;
-			return item.interact(h);
+			return AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
+//			Items item = this.uniqueItem;
+//			uniqueItem = null;
+//			return item.interact(h);
 		} else {
 			return "";
 		}
@@ -87,15 +82,15 @@ public class Room {
 			Random rng = new Random();
 			double chance = rng.nextDouble();
 			if (chance < healPotChance) {
-				items.add(new HealPot());
+				items.add(Items.HealingPotion);
 			}
 			chance = rng.nextDouble();
 			if (chance < visPotChance) {
-				items.add(new VisionPot());
+				items.add(Items.VisionPotion);
 			}
 			chance = rng.nextDouble();
 			if (chance < trapChance) {
-				items.add((Item) new Pit()); // BAD HERE
+				items.add(Items.Pit);
 			}
 		}
 		setLetter();
@@ -104,13 +99,13 @@ public class Room {
 	private void setLetter() {
 		String letter = "";
 		if (this.uniqueItem != null) {
-			letter += this.uniqueItem.getAbbreviation();
+			letter += AttackPool.getInstanceOf().getItem(uniqueItem).getAbbreviation();
 		}
 		if (this.m != null) {
 			letter += "X";
 		}
-		for (Item item : this.items) {
-			letter += item.getAbbreviation();
+		for (Items item : this.items) {
+			letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
 		}
 
 		if (letter.length() > 1) {
