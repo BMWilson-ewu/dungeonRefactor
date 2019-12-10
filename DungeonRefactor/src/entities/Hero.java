@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 import abilities.AttackPool;
 import dungeon.HealPot;
+import dungeon.Room;
 import dungeon.RoomItem;
 import enums.Abilities;
 import enums.Weapons;
+import dungeon.VisionPot;
 
 public class Hero extends DungeonCharacter {
 	private double chanceToBlock;
@@ -47,14 +49,16 @@ public class Hero extends DungeonCharacter {
 	}
 
 	public int getNumVision() {
-		return healPots.size();
+		return visionPots.size();
 	}
 
 	public void addVisionPot(RoomItem h) {
 		visionPots.add(h);
 	}
-
-	public void consumeVision() {
+	
+	public void consumeVision(Room[][] dungeon) {
+		VisionPot v = (VisionPot)this.visionPots.get(0);
+		System.out.println(v.consume(this, dungeon));
 		visionPots.remove(0);
 	}
 
@@ -75,7 +79,21 @@ public class Hero extends DungeonCharacter {
 		return Math.random() <= chanceToBlock;
 
 	}
-
+	
+	public void setX(int x) {
+		this.posX = x;
+	}
+	public int getX() {
+		return this.posX;
+	}
+	
+	public void setY(int y) {
+		this.posY = y;
+	}
+	public int getY() {
+		return this.posY;
+	}
+	
 	public String toString() {
 		return "Name: " + this.getName() + "\n" + "Hit Points: " + this.getHitPoints() + "\n" + "Healing Potions: "
 				+ this.healPots.size() + "\n" + "Vision Potioms: " + this.visionPots.size() + "\n" + "Pillars of OO: "

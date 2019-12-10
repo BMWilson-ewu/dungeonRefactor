@@ -2,7 +2,7 @@ package dungeon;
 
 import entities.Hero;
 
-public interface Trap {
+public interface Trap extends RoomItem {
 
 	public String trigger(Hero hero);
 
