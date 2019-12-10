@@ -1,0 +1,23 @@
+package specials;
+import entities.DungeonCharacter;
+
+public class Smite  implements SpecialAbility {
+	public void special(DungeonCharacter source, DungeonCharacter enemy) {
+		double smite = Math.random();
+		if (smite <= .4) {
+			int damage = (int) (Math.random() * 88);
+			source.attack(enemy);
+			System.out.println(source.getName() + " SMITES the with his attack" + enemy.getName() + " for " + damage + " extra damage!");
+			enemy.subtractHitPoints(damage);
+		} else if (smite >= .9){
+			System.out.println(source.getName() + " failed to land the attack!");
+		} else {
+			System.out.println(source.getName() + " attacks but fails to smite");
+			source.attack(enemy);
+		}
+	}
+
+	public String specialDesc() {
+		return "SMITE";
+	}
+}
