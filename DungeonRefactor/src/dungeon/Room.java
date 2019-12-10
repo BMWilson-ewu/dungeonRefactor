@@ -6,17 +6,17 @@ import java.util.Random;
 import entities.Hero;
 import entities.Monster;
 import items.HealPot;
+import items.Item;
 import items.Pit;
-import items.RoomItem;
 import items.VisionPot;
 
 public class Room {
 	private String top;
 	private String mid;
 	private String bot;
-	private ArrayList<RoomItem> items;
+	private ArrayList<Item> items;
 	private Monster m;
-	private RoomItem uniqueItem;
+	private Item uniqueItem;
 	private double healPotChance;
 	private double visPotChance;
 	private double trapChance;
@@ -25,7 +25,7 @@ public class Room {
 		top = "* * *";
 		mid = "* E *";
 		bot = "* * *";
-		items = new ArrayList<RoomItem>();
+		items = new ArrayList<Item>();
 		m = null;
 		uniqueItem = null;
 		healPotChance = .1;
@@ -61,7 +61,7 @@ public class Room {
 		}
 	}
 
-	public boolean setUnique(RoomItem item) {
+	public boolean setUnique(Item item) {
 		if (this.uniqueItem == null) {
 			this.uniqueItem = item;
 			return true;
@@ -72,7 +72,7 @@ public class Room {
 
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
-			RoomItem item = this.uniqueItem;
+			Item item = this.uniqueItem;
 			uniqueItem = null;
 			return item.interact(h);
 		} else {
@@ -95,7 +95,7 @@ public class Room {
 			}
 			chance = rng.nextDouble();
 			if (chance < trapChance) {
-				items.add((RoomItem) new Pit()); // BAD HERE
+				items.add((Item) new Pit()); // BAD HERE
 			}
 		}
 		setLetter();
@@ -109,7 +109,7 @@ public class Room {
 		if (this.m != null) {
 			letter += "X";
 		}
-		for (RoomItem item : this.items) {
+		for (Item item : this.items) {
 			letter += item.getAbbreviation();
 		}
 
