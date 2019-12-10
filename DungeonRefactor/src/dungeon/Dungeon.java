@@ -6,6 +6,8 @@ import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
+import enums.Heros;
+import enums.Monsters;
 import items.Entrance;
 import items.Exit;
 import items.PillarItem;
@@ -88,17 +90,19 @@ public class Dungeon {
 		}
 
 		if (choice == 1) {
-			toRet = h.createHero("Warrior");
+			toRet = h.createHero(Heros.Warrior);
 		} else if (choice == 2) {
-			toRet = h.createHero("Sorceress");
+			toRet = h.createHero(Heros.Sorceress);
 		} else if (choice == 3) {
-			toRet = h.createHero("Thief");
+			toRet = h.createHero(Heros.Thief);
 		} else if(choice == 4) {
-			toRet = h.createHero("Paladin");
+			toRet = h.createHero(Heros.Paladin);
 		} else if(choice == 5) {
-			toRet = h.createHero("Ranger");
-		} else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			toRet = h.createHero(Heros.Ranger);
+		} else if(choice == 32301){
+			toRet = h.createHero(Heros.Floridaman);
+		}else {
+			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
 			return chooseHero(kin);
 		}
 		kin.nextLine();
@@ -116,23 +120,23 @@ public class Dungeon {
 
 		switch (choice) {
 		case 1:
-			return m.createMonster("Ogre");
+			return m.createMonster(Monsters.Ogre);
 
 		case 2:
-			return m.createMonster("Gremlin");
+			return m.createMonster(Monsters.Gremlin);
 
 		case 3:
-			return m.createMonster("Skeleton");
+			return m.createMonster(Monsters.Skeleton);
 			
 		case 4:
-			return m.createMonster("Minotuar");
+			return m.createMonster(Monsters.Minotuar);
 			
 		case 5:
-			return m.createMonster("Bugbear");
+			return m.createMonster(Monsters.Bugbear);
 
 		default:
 			System.out.println("invalid choice, returning Skeleton");
-			return m.createMonster("Skeleton");
+			return m.createMonster(Monsters.Skeleton);
 		}
 	}
 

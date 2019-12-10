@@ -23,16 +23,6 @@ public class DungeonAdventure {
 		System.out.println("Congratulations by collecting the four pillars of OO!");
 		System.out.println("Your Prize is: ");
 		System.out.println("50 gold pieces");
-		
-		//if the point system is implemented we can do if else to check the amount of points and using a getPoints method and then reward accordingly
-		/*
-		 if(theHero.getPoints() > 250)
-		 sysout(50 gp)
-		 else if(theHero.getPoints() > 100)
-		 sysout(50 sp)
-		 else
-		 sysout(3 copper)
-		 */
 	}
 
 }
