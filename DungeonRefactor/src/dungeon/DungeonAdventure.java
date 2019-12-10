@@ -1,8 +1,11 @@
 package dungeon;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import entities.Hero;
+import entities.HeroFactory;
 import entities.Monster;
+import enums.Heros;
 
 public class DungeonAdventure {
 
@@ -15,12 +18,48 @@ public class DungeonAdventure {
 		System.out.println();
 		
 		do {
-			theHero = Dungeon.chooseHero(kin);
+			theHero = chooseHero(kin);
 			theMonster = generateMonster();
 			battle(theHero, theMonster, kin);
 
 		} while (playAgain(kin));
 
+	}
+	
+	private static Hero chooseHero(Scanner kin) {
+		int choice = 0;
+		HeroFactory h = new HeroFactory();
+		Hero toRet;
+
+		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief\n" + "4. Paladin\n" +"5. Ranger");
+		try {
+			choice = kin.nextInt();
+		} catch (InputMismatchException e) {
+			kin.nextLine();
+			choice = 0;
+		}
+
+		if (choice == 1) {
+			toRet = h.createHero(Heros.Warrior);
+		} else if (choice == 2) {
+			toRet = h.createHero(Heros.Sorceress);
+		} else if (choice == 3) {
+			toRet = h.createHero(Heros.Thief);
+		} else if(choice == 4) {
+			toRet = h.createHero(Heros.Paladin);
+		} else if(choice == 5) {
+			toRet = h.createHero(Heros.Ranger);
+		} else if(choice == 32301) {
+			toRet = h.createHero(Heros.Floridaman);
+		}else {
+			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			return chooseHero(kin);
+		}
+		kin.nextLine();
+
+		toRet.readName(kin);
+
+		return toRet;
 	}
 	
 	public static void Intro() {
