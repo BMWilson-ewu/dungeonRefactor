@@ -1,11 +1,11 @@
 package dungeon;
 import java.util.*;
 
+import abilities.AttackPool;
 import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
-import weapons.AttackPool;
 
 public class Dungeon {
 	public static void main(String[] args) {

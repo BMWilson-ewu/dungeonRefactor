@@ -1,5 +1,7 @@
-package specials;
+package abilities;
+
 import entities.DungeonCharacter;
+import enums.Abilities;
 
 public class HeroHeal implements SpecialAbility {
 
@@ -17,4 +19,9 @@ public class HeroHeal implements SpecialAbility {
 	public String specialDesc() {
 		return "Heal Self";
 	}
+
+	public Abilities getKey() {
+		return Abilities.HeroHeal;
+	}
+
 }

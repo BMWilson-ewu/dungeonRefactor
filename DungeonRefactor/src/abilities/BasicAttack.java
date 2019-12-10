@@ -1,9 +1,9 @@
-package specials;
+package abilities;
 
 import entities.DungeonCharacter;
 
 public class BasicAttack {
-	
+
 	public void attack(DungeonCharacter source, DungeonCharacter target) {
 		boolean canAttack;
 		int damage;
@@ -11,8 +11,11 @@ public class BasicAttack {
 		canAttack = Math.random() <= source.getChanceToHit();
 
 		if (canAttack) {
-			damage = (int) (Math.random() * (source.getMaxDamage() - source.getMinDamage() + 1)) + source.getMinDamage();
-			System.out.println(source.getName() + " " + source.getWeapon().attackDesc() + " " + target.getName() + "!");
+			damage = (int) (Math.random() * (source.getMaxDamage() - source.getMinDamage() + 1))
+					+ source.getMinDamage();
+			System.out.println(
+					source.getName() + " " + AttackPool.getInstanceOf().getWeapon(source.getWeapon()).attackDesc() + " "
+							+ target.getName() + "!");
 			target.subtractHitPoints(damage);
 
 			System.out.println();
