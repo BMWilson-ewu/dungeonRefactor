@@ -66,10 +66,9 @@ public class Room {
 
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
-			return AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
-//			Items item = this.uniqueItem;
-//			uniqueItem = null;
-//			return item.interact(h);
+			String message =  AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
+			this.uniqueItem = null;
+			return message;
 		} else {
 			return "";
 		}

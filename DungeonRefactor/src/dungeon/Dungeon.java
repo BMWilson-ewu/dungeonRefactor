@@ -6,6 +6,7 @@ import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
+import enums.Items;
 import items.Entrance;
 import items.Exit;
 import items.PillarItem;
@@ -211,14 +212,14 @@ public class Dungeon {
 		return group;
 	}
 	
-	private ArrayList<RoomItem> generateUniques(){
-		ArrayList<RoomItem> items = new ArrayList<RoomItem>();
-		items.add(new Entrance());
-		items.add(new Exit());
-		items.add(new PillarItem("Abstraction"));
-		items.add(new PillarItem("Encapsulation"));
-		items.add(new PillarItem("Inheritance"));
-		items.add(new PillarItem("Polymorphism"));
+	private ArrayList<Items> generateUniques(){
+		ArrayList<Items> items = new ArrayList<Items>();
+		items.add(Items.Entrance);
+		items.add(Items.Exit);
+		items.add(Items.PillarOfAbstraction);
+		items.add(Items.PillarOfEncapsulation);
+		items.add(Items.PillarOfInheritance);
+		items.add(Items.PillarOfPolymorphism);
 		
 		return items;
 	}
