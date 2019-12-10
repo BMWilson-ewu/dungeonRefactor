@@ -13,7 +13,6 @@ public class Smite implements SpecialAbility {
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
 			System.out.println(source.getName() + " SMITES the with his attack" + enemy.getName() + " for " + damage
 					+ " extra damage!");
-
 			enemy.subtractHitPoints(damage);
 		} else if (smite >= .9) {
 			System.out.println(source.getName() + " failed to land the attack!");
