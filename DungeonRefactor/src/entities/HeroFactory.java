@@ -1,25 +1,97 @@
 package entities;
-import specials.*;
-import weapons.*;
+
+import enums.Abilities;
+import enums.Heros;
+import enums.Weapons;
 
 public class HeroFactory {
 
-	public Hero createHero(String type) {
+	public Hero createHero(Heros type) {
 
-		if (type.equals("Warrior")) {
-			return new Hero("Warrior", 125, 4, .8, 35, 60, .2, new CrushingBlow(), new GreatSword());
-		} else if (type.equals("Sorceress")) {
-			return new Hero("Sorceress", 75, 5, .7, 25, 50, .3, new HeroHeal(), new FireStaff());
-		} else if (type.equals("Thief")) {
-			return new Hero("Thief", 75, 6, .8, 20, 40, .5, new SneakAttack(), new Dagger());
-		} else if (type.equals("Paladin")) {
-			return new Hero("Paladin", 140, 3, .6, 40, 60, .2, new Smite(), new Flail());
-		} else if (type.equals("Ranger")) {
-			return new Hero("Ranger", 80, 5, .8, 30, 55, .4, new TwinStrike(), new ShortBow());
-		} else {
-			System.out.println("Unexpected input, returning a Warrior...");
-			return new Hero("Warrior", 125, 4, .8, 35, 60, .2, new CrushingBlow(), new GreatSword());
+		if (type == null) {
+			throw new IllegalArgumentException("Hero type was null");
 		}
+
+		String name = "";
+		int hitPoints = 0;
+		int attackSpeed = 0;
+		double chanceToHit = 0.0;
+		int damageMin = 0;
+		int damageMax = 0;
+		double chanceToBlock = 0.0;
+		Abilities ability = Abilities.CrushingBlow;
+		Weapons weapon = Weapons.Club;
+
+		switch (type) {
+
+		case Warrior:
+			name = "Warrior";
+			hitPoints = 125;
+			attackSpeed = 4;
+			chanceToHit = .8;
+			damageMin = 35;
+			damageMax = 60;
+			chanceToBlock = .2;
+			ability = Abilities.CrushingBlow;
+			weapon = Weapons.GreatSword;
+			break;
+
+		case Sorceress:
+			name = "Sorceress";
+			hitPoints = 75;
+			attackSpeed = 5;
+			chanceToHit = .7;
+			damageMin = 25;
+			damageMax = 50;
+			chanceToBlock = .3;
+			ability = Abilities.HeroHeal;
+			weapon = Weapons.FireStaff;
+			break;
+
+		case Thief:
+			name = "Thief";
+			hitPoints = 75;
+			attackSpeed = 6;
+			chanceToHit = .8;
+			damageMin = 20;
+			damageMax = 40;
+			chanceToBlock = .5;
+			ability = Abilities.SneakAttack;
+			weapon = Weapons.Dagger;
+			break;
+
+		case Paladin:
+			name = "Paladin";
+			hitPoints = 140;
+			attackSpeed = 3;
+			chanceToHit = .6;
+			damageMin = 40;
+			damageMax = 60;
+			chanceToBlock = .2;
+			ability = Abilities.Smite;
+			weapon = Weapons.Flail;
+			break;
+
+		case Ranger:
+			name = "Ranger";
+			hitPoints = 80;
+			attackSpeed = 5;
+			chanceToHit = .8;
+			damageMin = 30;
+			damageMax = 55;
+			chanceToBlock = .4;
+			ability = Abilities.TwinStrike;
+			weapon = Weapons.ShortBow;
+			break;
+
+		default:
+			throw new IllegalArgumentException("Hero type is not implemented");
+
+		}
+
+		return new Hero(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, chanceToBlock, ability,
+				weapon);
+
 	}
 
 }

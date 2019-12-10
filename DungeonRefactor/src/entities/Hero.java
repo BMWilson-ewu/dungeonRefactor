@@ -1,68 +1,88 @@
 package entities;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import dungeon.HealPot;
-import dungeon.RoomItem;
-import specials.SpecialAbility;
-import weapons.Weapon;
+import abilities.AttackPool;
+import enums.Abilities;
+import enums.Items;
+import enums.Weapons;
 
 public class Hero extends DungeonCharacter {
+
 	private double chanceToBlock;
-	private SpecialAbility special;
-	private ArrayList<RoomItem> pillars;
-	private ArrayList<RoomItem> healPots;
-	private ArrayList<RoomItem> visionPots;
+	private ArrayList<Items> items;
+	private Abilities specialAttack;
 	private int posX;
 	private int posY;
 
 	public Hero(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
-			double chanceToBlock, SpecialAbility sp, Weapon w) {
+			double chanceToBlock, Abilities sp, Weapons w) {
 		super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, w);
-		this.special = sp;
 		this.chanceToBlock = chanceToBlock;
 	}
-	
+
 	public int getNumPillars() {
-		return pillars.size();
+		int count = 0;
+		for(Items item: items) {
+			if(item == Items.PillarOfAbstraction ||
+					item == Items.PillarOfEncapsulation ||
+					item == Items.PillarOfInheritance ||
+					item == Items.PillarOfPolymorphism) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
-	public void addPillar(RoomItem p) {
-		pillars.add(p);
-	}
-	
-	public int getNumHeal() {
-		return healPots.size();
-	}
-	
-	public void addHealPot(RoomItem h) {
-		healPots.add(h);
-	}
-	
-	public void consumeHeal() {
-		HealPot h = (HealPot)this.healPots.get(0);
-		System.out.println(h.consume(this));
-		healPots.remove(0);
+	private int getNumHeal() {
+		int count = 0;
+		for(Items item: items) {
+			if(item == Items.HealingPotion) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public int getNumVision() {
-		return healPots.size();
+		int count = 0;
+		for(Items item: items) {
+			if(item == Items.VisionPotion) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
-	public void addVisionPot(RoomItem h) {
-		visionPots.add(h);
+	public void addItem(Items item) {
+		items.add(item);
 	}
-	
-	public void consumeVision() {
-		visionPots.remove(0);
+
+	public void consumeHeal() {
+		for(Items item: items) {
+			if(item == Items.HealingPotion) {
+				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
+				this.items.remove(item);
+			}
+		}
+	}
+
+	public void consumeVision(/* Room[][] dungeon */) {
+		for(Items item: items) {
+			if(item == Items.VisionPotion) {
+				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
+				this.items.remove(item);
+			}
+		}
 	}
 
 	public void special(DungeonCharacter enemy) {
-		special.special(this, enemy);
+		AttackPool.getInstanceOf().getSpecialAbility(specialAttack).special(this, enemy);
 	}
 
 	public String readSpecial() {
-		return special.specialDesc();
+		return AttackPool.getInstanceOf().getSpecialAbility(specialAttack).specialDesc();
 	}
 
 	public void readName(Scanner kin) {
@@ -74,13 +94,27 @@ public class Hero extends DungeonCharacter {
 		return Math.random() <= chanceToBlock;
 
 	}
-	
+
+	public void setX(int x) {
+		this.posX = x;
+	}
+
+	public int getX() {
+		return this.posX;
+	}
+
+	public void setY(int y) {
+		this.posY = y;
+	}
+
+	public int getY() {
+		return this.posY;
+	}
+
 	public String toString() {
-		return "Name: " + this.getName() + "\n" +
-				"Hit Points: " + this.getHitPoints() + "\n" +
-				"Healing Potions: " + this.healPots.size() + "\n" +
-				"Vision Potioms: " + this.visionPots.size() + "\n" + 
-				"Pillars of OO: " + this.pillars.size(); 
+		return "Name: " + this.getName() + "\n" + "Hit Points: " + this.getHitPoints() + "\n" + "Healing Potions: "
+				+ this.getNumHeal() + "\n" + "Vision Potioms: " + this.getNumVision() + "\n" + "Pillars of OO: "
+				+ this.getNumPillars();
 	}
 
 	public void subtractHitPoints(int hitPoints) {

@@ -1,5 +1,6 @@
 package entities;
-import weapons.Weapon;
+
+import enums.Weapons;
 
 public abstract class DungeonCharacter {
 
@@ -9,10 +10,10 @@ public abstract class DungeonCharacter {
 	private double chanceToHit;
 	private int damageMin, damageMax;
 	private int numTurns;
-	private Weapon weapon;
+	private Weapons weapon;
 
 	public DungeonCharacter(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin,
-			int damageMax, Weapon w) {
+			int damageMax, Weapons weapon) {
 
 		this.name = name;
 		this.hitPoints = hitPoints;
@@ -20,7 +21,7 @@ public abstract class DungeonCharacter {
 		this.chanceToHit = chanceToHit;
 		this.damageMin = damageMin;
 		this.damageMax = damageMax;
-		this.weapon = w;
+		this.weapon = weapon;
 
 	}
 
@@ -39,11 +40,11 @@ public abstract class DungeonCharacter {
 	public int getAttackSpeed() {
 		return attackSpeed;
 	}
-	
+
 	public double getChanceToHit() {
 		return this.chanceToHit;
 	}
-	
+
 	public int getMinDamage() {
 		return this.damageMin;
 	}
@@ -55,8 +56,8 @@ public abstract class DungeonCharacter {
 	public int getTurns() {
 		return this.numTurns;
 	}
-	
-	public Weapon getWeapon() {
+
+	public Weapons getWeapon() {
 		return this.weapon;
 	}
 
