@@ -10,8 +10,8 @@ public class PillarOfInheritance implements Item {
 	}
 
 	public String interact(Hero hero) {
-		return hero.getName() + " examinations the pillar, the pillar is extremly degraded."
-				+ " Parts of the pillar have been chiped away revealing a layered like structure of the pillar.";
+		return hero.getName() + " examines the pillar, the pillar is partially damaged."
+				+ " Parts of it have been chiped away, revealing the structure of the pillar.";
 	}
 
 	public String getAbbreviation() {
