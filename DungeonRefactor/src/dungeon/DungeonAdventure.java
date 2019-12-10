@@ -1,9 +1,25 @@
 package dungeon;
 
+import java.util.Scanner;
+import entities.Hero;
+import entities.Monster;
+
 public class DungeonAdventure {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Hero theHero;
+		Monster theMonster;
+		Scanner kin = new Scanner(System.in);
+		
+		Intro();
+		System.out.println();
+		
+		do {
+			theHero = Dungeon.chooseHero(kin);
+			theMonster = generateMonster();
+			battle(theHero, theMonster, kin);
+
+		} while (playAgain(kin));
 
 	}
 	
