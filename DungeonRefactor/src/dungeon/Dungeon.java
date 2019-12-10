@@ -6,10 +6,16 @@ import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
+import enums.Heros;
+import enums.Items;
+import enums.Monsters;
 import items.Entrance;
 import items.Exit;
-import items.PillarItem;
-import items.RoomItem;
+import items.Item;
+import items.PillarOfAbstraction;
+import items.PillarOfEncapsulation;
+import items.PillarOfInheritance;
+import items.PillarOfPolymorphism;
 
 public class Dungeon {
 	
@@ -23,8 +29,8 @@ public class Dungeon {
 			}
 		}
 		//populate unique items
-		ArrayList<RoomItem> unique = generateUniques();
-		for(RoomItem u: unique) {
+		ArrayList<Item> unique = generateUniques();
+		for(Item u: unique) {
 			boolean placed = false;
 			while(!placed) {
 				int roomY = (int)(Math.random() * y);
@@ -88,17 +94,17 @@ public class Dungeon {
 		}
 
 		if (choice == 1) {
-			toRet = h.createHero("Warrior");
+			toRet = h.createHero(Heros.Warrior);
 		} else if (choice == 2) {
-			toRet = h.createHero("Sorceress");
+			toRet = h.createHero(Heros.Sorceress);
 		} else if (choice == 3) {
-			toRet = h.createHero("Thief");
+			toRet = h.createHero(Heros.Thief);
 		} else if(choice == 4) {
-			toRet = h.createHero("Paladin");
+			toRet = h.createHero(Heros.Paladin);
 		} else if(choice == 5) {
-			toRet = h.createHero("Ranger");
+			toRet = h.createHero(Heros.Ranger);
 		} else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
 			return chooseHero(kin);
 		}
 		kin.nextLine();
@@ -116,23 +122,23 @@ public class Dungeon {
 
 		switch (choice) {
 		case 1:
-			return m.createMonster("Ogre");
+			return m.createMonster(Monsters.Ogre);
 
 		case 2:
-			return m.createMonster("Gremlin");
+			return m.createMonster(Monsters.Gremlin);
 
 		case 3:
-			return m.createMonster("Skeleton");
+			return m.createMonster(Monsters.Skeleton);
 			
 		case 4:
-			return m.createMonster("Minotuar");
+			return m.createMonster(Monsters.Minotuar);
 			
 		case 5:
-			return m.createMonster("Bugbear");
+			return m.createMonster(Monsters.Bugbear);
 
 		default:
 			System.out.println("invalid choice, returning Skeleton");
-			return m.createMonster("Skeleton");
+			return m.createMonster(Monsters.Skeleton);
 		}
 	}
 
@@ -211,16 +217,40 @@ public class Dungeon {
 		return group;
 	}
 	
-	private ArrayList<RoomItem> generateUniques(){
-		ArrayList<RoomItem> items = new ArrayList<RoomItem>();
+	private ArrayList<Item> generateUniques(){
+		ArrayList<Item> items = new ArrayList<Item>();
 		items.add(new Entrance());
 		items.add(new Exit());
-		items.add(new PillarItem("Abstraction"));
-		items.add(new PillarItem("Encapsulation"));
-		items.add(new PillarItem("Inheritance"));
-		items.add(new PillarItem("Polymorphism"));
+		items.add(new PillarOfAbstraction());
+		items.add(new PillarOfEncapsulation());
+		items.add(new PillarOfInheritance());
+		items.add(new PillarOfPolymorphism());
 		
 		return items;
+	}
+	
+	public String displayVision(Hero h) {
+		String output = "";
+		
+		for(int i = h.getY() - 1; i <= h.getY() + 1; i++) { 
+			for(int j = 0; j <3; j++) { 
+				for(int k = h.getX() - 1; k <= h.getX() + 1; k++) { 
+					try {
+						if(j == 0) { output += dungeonArray[i][k].getTop() + " ";
+						} else if(j == 1) {
+							output += dungeonArray[i][k].getMid() + " "; 
+						} else if(j == 2) { 
+							output += dungeonArray[i][k].getBot() + " "; 
+						} 
+					} catch(ArrayIndexOutOfBoundsException e) {
+						output += "* * * "; 
+					} 
+					
+				} output += "\n"; 		
+			} 	
+		} 
+		
+		return output;
 	}
 	
 	public String toString() {

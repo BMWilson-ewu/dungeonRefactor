@@ -69,7 +69,8 @@ public class Room {
 			return false;
 		}
 	}
-
+	
+	//fix to not remove Entrance/Exit
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
 			Item item = this.uniqueItem;
