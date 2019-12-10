@@ -1,11 +1,12 @@
-package dungeon;
+package items;
 
 import java.util.Random;
 
 import entities.Hero;
+import enums.Items;
 
-public class Pit implements Trap {
-	
+public class Pit implements Item {
+
 	public String trigger(Hero hero) {
 		return hero.getName() + " fell into a pit.";
 	}
@@ -21,8 +22,8 @@ public class Pit implements Trap {
 		return "T";
 	}
 
-	public String geyKeyword() {
-		return "pit";
+	public Items getKey() {
+		return Items.Pit;
 	}
-	
+
 }

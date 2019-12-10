@@ -2,10 +2,10 @@ package abilities;
 
 import java.util.HashMap;
 
-import dungeon.Pit;
-import dungeon.Trap;
 import enums.Abilities;
+import enums.Items;
 import enums.Weapons;
+import items.*;
 import weapons.*;
 
 public class AttackPool {
@@ -15,13 +15,15 @@ public class AttackPool {
 	private BasicHeal heal;
 	private HashMap<Abilities, SpecialAbility> specialAbility;
 	private HashMap<Weapons, Weapon> weapons;
-	private Trap trap;
+	private HashMap<Items, Item> items;
+	private Item trap;
 
 	private AttackPool() {
 		this.attack = new BasicAttack();
 		this.heal = new BasicHeal();
 		this.specialAbility = generateSpecialAbilities();
 		this.weapons = generateWeapons();
+		this.items = generateItems();
 		this.trap = new Pit();
 	}
 
@@ -51,6 +53,19 @@ public class AttackPool {
 		return weapons;
 	}
 
+	private HashMap<Items, Item> generateItems() {
+		HashMap<Items, Item> items = new HashMap<Items, Item>();
+		items.put(Items.Entrance, new Entrance());
+		items.put(Items.Exit, new Exit());
+		items.put(Items.HealingPotion, new HealPot());
+		items.put(Items.VisionPotion, new VisionPot());
+		items.put(Items.PillarOfAbstraction, new PillarOfAbstraction());
+		items.put(Items.PillarOfEncapsulation, new PillarOfEncapsulation());
+		items.put(Items.PillarOfInheritance, new PillarOfInheritance());
+		items.put(Items.PillarOfPolymorphism, new PillarOfPolymorphism());
+		return items;
+	}
+
 	public static AttackPool getInstanceOf() {
 		if (attackPool == null) {
 			return attackPool = new AttackPool();
@@ -66,6 +81,10 @@ public class AttackPool {
 		return this.weapons.get(weapon);
 	}
 
+	public Item getItem(Items item) {
+		return items.get(item);
+	}
+
 	public BasicAttack getbasicAttack() {
 		return this.attack;
 	}
@@ -74,8 +93,8 @@ public class AttackPool {
 		return this.heal;
 	}
 
-	public Trap getTrap() {
+	public Item getTrap() {
 		return this.trap;
 	}
-	
+
 }

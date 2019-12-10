@@ -1,8 +1,9 @@
-package dungeon;
+package items;
 
 import entities.Hero;
+import enums.Items;
 
-public interface Trap extends RoomItem {
+public interface Item {
 
 	public String trigger(Hero hero);
 
@@ -10,6 +11,6 @@ public interface Trap extends RoomItem {
 
 	public String getAbbreviation();
 
-	public String geyKeyword();
+	public Items getKey();
 
 }
