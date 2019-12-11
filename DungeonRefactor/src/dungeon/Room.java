@@ -97,7 +97,8 @@ public class Room implements Serializable {
 
 		}
 	}
-
+	
+	//fix to not remove Entrance/Exit
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
 			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);

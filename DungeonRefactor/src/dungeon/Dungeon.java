@@ -3,6 +3,7 @@ package dungeon;
 import java.io.Serializable;
 import java.util.*;
 
+import entities.Hero;
 import entities.Monster;
 import entities.MonsterFactory;
 import enums.Items;
@@ -88,7 +89,9 @@ public class Dungeon implements Serializable {
 			return m.createMonster(Monsters.Bugbear);
 
 		default:
+
 			throw new IllegalArgumentException("Random Object generated a unexpected value of " + choice + ".");
+
 		}
 	}
 
@@ -110,7 +113,67 @@ public class Dungeon implements Serializable {
 		items.add(Items.PillarOfPolymorphism);
 		return items;
 	}
-
+	
+	public Room moveHero(Hero h, String s) {
+		
+		int heroX = h.getX();
+		int heroY = h.getY();
+		Room curRoom = dungeonArray[heroY][heroX];
+		Room nextRoom = new Room();
+		
+		try {
+			switch(s) {
+			case("North"):
+				heroY = heroY - 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("South"):
+				heroY = heroY + 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("East"):
+				heroX = heroX + 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("West"):
+				heroX = heroX - 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			}
+			h.setX(heroX);
+			h.setY(heroY);
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println(h.getName() + " cannot move " + s);
+			return curRoom;
+		}
+		
+		return nextRoom;
+	}
+	
+	public String displayVision(Hero h) {
+		String output = "";
+		
+		for(int i = h.getY() - 1; i <= h.getY() + 1; i++) { 
+			for(int j = 0; j <3; j++) { 
+				for(int k = h.getX() - 1; k <= h.getX() + 1; k++) { 
+					try {
+						if(j == 0) { output += dungeonArray[i][k].getTop() + " ";
+						} else if(j == 1) {
+							output += dungeonArray[i][k].getMid() + " "; 
+						} else if(j == 2) { 
+							output += dungeonArray[i][k].getBot() + " "; 
+						} 
+					} catch(ArrayIndexOutOfBoundsException e) {
+						output += "* * * "; 
+					} 
+					
+				} output += "\n"; 		
+			} 	
+		} 
+		
+		return output;
+	}
+	
 	public String toString() {
 		String dungeonString = "";
 		for (int i = 0; i < dungeonArray.length; i++) {

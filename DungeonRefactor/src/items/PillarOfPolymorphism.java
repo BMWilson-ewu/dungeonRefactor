@@ -10,8 +10,9 @@ public class PillarOfPolymorphism implements Item {
 	}
 
 	public String interact(Hero hero) {
-		return hero.getName() + " examinations the pillar, the pillar emits a light or maybe a dim energy."
-				+ " The pillar seems to be pulsing not only by brightness but its structure seems to be moving slowly.";
+		return hero.getName() + " examines the pillar, which emits a dim glow."
+				+ " The pillar's appearance seems to be shifting each time " + hero.getName()
+				+ " looks away.";
 	}
 
 	public String getAbbreviation() {

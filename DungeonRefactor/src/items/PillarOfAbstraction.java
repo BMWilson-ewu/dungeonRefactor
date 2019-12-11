@@ -10,7 +10,7 @@ public class PillarOfAbstraction implements Item {
 	}
 
 	public String interact(Hero hero) {
-		return hero.getName() + " examinations the pillar, as they rotate the pillar parts of it become invisible... "
+		return hero.getName() + " examines the pillar, as they rotate the pillar parts of it become invisible... "
 				+ "alsmot like part of the pillar is hidden from plain sight.";
 	}
 

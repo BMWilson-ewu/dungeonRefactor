@@ -11,7 +11,7 @@ public class PillarOfEncapsulation implements Item {
 
 	public String interact(Hero hero) {
 		return hero.getName()
-				+ " examinations the pillar, the pillar appears to be made out of an extremly hard material.";
+				+ " examines the pillar, it appears to be made out of an extremly hard material.";
 	}
 
 	public String getAbbreviation() {

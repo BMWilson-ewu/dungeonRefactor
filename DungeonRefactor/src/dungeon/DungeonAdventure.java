@@ -21,7 +21,7 @@ public class DungeonAdventure {
 		
 		do {
 			theHero = chooseHero(kin);
-			battle(theHero, theMonster, kin);
+			battle(theHero, kin);
 
 		} while (playAgain(kin));
 
@@ -54,7 +54,7 @@ public class DungeonAdventure {
 		return (again.equals("Y") || again.equals("y"));
 	}
 
-	private static void battle(Hero theHero, Monster theMonster, Scanner kin) {
+	private static void battle(Hero theHero,  Scanner kin) {
 		String pause = "p";
 		System.out.println(theHero.getName() + " battles " + theMonster.getName());
 		System.out.println("---------------------------------------------");
