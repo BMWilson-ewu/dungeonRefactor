@@ -39,11 +39,14 @@ public class Room implements Serializable {
 	}
 
 	public Monster getMonster() {
-		return this.m;
+		Monster mon = this.m;
+		this.m = null;
+		setLetter();
+		return mon;
 	}
 
 	public void setMonster(Monster monster) {
-		if (hasUniqueItem()) {
+		if (hasMonster()) {
 			throw new IllegalArgumentException("Room already has a Monster");
 		}
 		this.m = monster;
@@ -54,11 +57,14 @@ public class Room implements Serializable {
 	}
 
 	public ArrayList<Items> getItems() {
+		ArrayList<Items> i = this.items;
+		this.items.clear();
+		setLetter();
 		return this.items;
 	}
 
 	public void setItem(Items item) {
-		if (hasUniqueItem()) {
+		if (item == null) {
 			throw new IllegalArgumentException("Passed item was null");
 		}
 		items.add(item);
@@ -98,11 +104,13 @@ public class Room implements Serializable {
 		}
 	}
 	
-	//fix to not remove Entrance/Exit
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
 			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
-			this.uniqueItem = null;
+			if(uniqueItem != Items.Entrance && uniqueItem != Items.Exit) {
+				this.uniqueItem = null;
+			}
+			setLetter();
 			return message;
 		} else {
 			return "";
@@ -137,14 +145,17 @@ public class Room implements Serializable {
 		if (this.m != null) {
 			letter += "X";
 		}
-		for (Items item : this.items) {
-			letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
+		if(this.items.size() != 0) {
+			for (Items item : this.items) {
+				letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
+			}
 		}
-
 		if (letter.length() > 1) {
-			this.mid = "* M *";
+			this.mid = this.mid.substring(0, 2) + "M" + this.mid.substring(3);
 		} else if (letter.length() == 1) {
-			this.mid = "* " + letter + " *";
+			this.mid = this.mid.substring(0, 2) + letter + this.mid.substring(3);
+		} else {
+			this.mid = this.mid.substring(0, 2) + "E" + this.mid.substring(3);
 		}
 	}
 
