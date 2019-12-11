@@ -47,7 +47,7 @@ public class DungeonAdventure {
 			curRoom = theDungeon.moveHero(theHero, direction);
 			System.out.println(theHero.toString());
 			
-		}while (playAgain(kin));
+		}while(playAgain(kin));
 		
 		Victory();
 	}
@@ -104,7 +104,7 @@ public class DungeonAdventure {
 			while (theHero.getTurns() > 0 && theMonster.isAlive()) {
 				int option = 0;
 				System.out.println("1. Attack Opponent");
-				System.out.println("2. " + AttackPool.getInstanceOf().getSpecialAbility(theHero.specialAttack).specialDesc());
+				System.out.println("2. " + theHero.readSpecial());
 				System.out.print("Choose an option: ");
 				try {
 					option = kin.nextInt();
