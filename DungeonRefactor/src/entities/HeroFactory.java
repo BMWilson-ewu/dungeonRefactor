@@ -83,6 +83,18 @@ public class HeroFactory {
 			ability = Abilities.TwinStrike;
 			weapon = Weapons.ShortBow;
 			break;
+			
+		case Floridaman:
+			name = "Florida man";
+			hitPoints = 9999999;
+			attackSpeed = 100;
+			chanceToHit = 1;
+			damageMin = 500;
+			damageMax = 1000;
+			chanceToBlock = 1;
+			ability = Abilities.Smite;
+			weapon = Weapons.RustyBlade;
+			break;
 
 		default:
 			throw new IllegalArgumentException("Hero type is not implemented");
