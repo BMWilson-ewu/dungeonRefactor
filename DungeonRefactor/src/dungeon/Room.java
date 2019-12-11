@@ -60,7 +60,7 @@ public class Room implements Serializable {
 		ArrayList<Items> i = this.items;
 		this.items.clear();
 		setLetter();
-		return this.items;
+		return i;
 	}
 
 	public void setItem(Items item) {
