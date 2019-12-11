@@ -2,8 +2,6 @@ package dungeon;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import abilities.AttackPool;
 import entities.Hero;
 import entities.HeroFactory;
 import entities.Monster;
@@ -12,19 +10,23 @@ import enums.Heros;
 public class DungeonAdventure {
 
 	public static void main(String[] args) {
-		Hero theHero;
-		Monster theMonster;
+		Hero theHero = null;
+		Dungeon dungeon = new Dungeon(5, 5, 5);
 		Scanner kin = new Scanner(System.in);
 		
 		Intro();
-		System.out.println();
 		
 		do {
-			theHero = chooseHero(kin);
-			battle(theHero, kin);
+			theHero = Dungeon.chooseHero(kin);
+			theMonster = generateMonster();
+			battle(theHero, theMonster, kin);
 
 		} while (playAgain(kin));
 
+	}
+	
+	private void attackMonster(Dungeon dungeon, Hero hero) {
+		dungeon.getRoom
 	}
 	
 	public static void Intro() {
@@ -34,7 +36,7 @@ public class DungeonAdventure {
 				+ "exploring a mysterious cave.\nAs you reach the cave you find a sign posted at the entrance, it reads: " + "\n\n"
 				+ "“Adventurers and Heroes complete the dungeon inside here by collecting the four pillars of OO."
 				+ "\nBeware many obstacles will be in your way, \r\n" + 
-				"some helpful items can also be found to keep you alive.“");
+				"some helpful items can also be found to keep you alive.“\n");
 	}
 	
 	public static void Victory() {
@@ -45,15 +47,6 @@ public class DungeonAdventure {
 		System.out.println("50 gold pieces");
 	}
 	
-	private static boolean playAgain(Scanner kin) {
-		String again;
-
-		System.out.println("Play again (y/n)?");
-		again = kin.nextLine();
-
-		return (again.equals("Y") || again.equals("y"));
-	}
-
 	private static void battle(Hero theHero,  Scanner kin) {
 		String pause = "p";
 		System.out.println(theHero.getName() + " battles " + theMonster.getName());

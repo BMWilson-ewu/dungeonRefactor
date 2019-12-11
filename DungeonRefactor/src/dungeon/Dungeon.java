@@ -15,6 +15,9 @@ public class Dungeon implements Serializable {
 	private Room[][] dungeonArray;
 
 	public Dungeon(int x, int y, int monsters) {
+		if(monsters + 6 > x * y) {
+			throw new IllegalArgumentException("To many Monsters cannot create Dungeon.");
+		}
 		generateDungeon(x, y);
 		populateUniqueItems(x, y);
 		populateMonsters(x, y, monsters);
