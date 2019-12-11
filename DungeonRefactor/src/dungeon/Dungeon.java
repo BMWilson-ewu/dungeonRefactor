@@ -117,49 +117,49 @@ public class Dungeon implements Serializable {
 		items.add(Items.PillarOfPolymorphism);
 		return items;
 	}
-	
+
 	public Room moveHero(Hero h, String s) {
-		
+
 		int heroX = h.getX();
 		int heroY = h.getY();
 		Room curRoom = dungeonArray[heroY][heroX];
 		Room nextRoom = new Room();
-		
+
 		try {
-			switch(s) {
-			case("North"):
+			switch (s) {
+			case ("North"):
 				heroY = heroY - 1;
 				nextRoom = dungeonArray[heroY][heroX];
 				break;
-			case("South"):
+			case ("South"):
 				heroY = heroY + 1;
 				nextRoom = dungeonArray[heroY][heroX];
 				break;
-			case("East"):
+			case ("East"):
 				heroX = heroX + 1;
 				nextRoom = dungeonArray[heroY][heroX];
 				break;
-			case("West"):
+			case ("West"):
 				heroX = heroX - 1;
 				nextRoom = dungeonArray[heroY][heroX];
 				break;
 			}
 			h.setX(heroX);
 			h.setY(heroY);
-		} catch(ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println(h.getName() + " cannot move " + s);
 			return curRoom;
 		}
-		
+
 		return nextRoom;
 	}
-	
+
 	public Room manageEntrance(Hero h) {
-		
-		for(int i = 0; i < dungeonArray.length; i++) {
-			for(int j = 0; j < dungeonArray[0].length; j++) {
+
+		for (int i = 0; i < dungeonArray.length; i++) {
+			for (int j = 0; j < dungeonArray[0].length; j++) {
 				Items item = dungeonArray[i][j].getUniqueItem();
-				if(item == Items.Entrance) {
+				if (item == Items.Entrance) {
 					h.setY(i);
 					h.setX(j);
 					return dungeonArray[i][j];
@@ -168,31 +168,33 @@ public class Dungeon implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public String displayVision(Hero h) {
 		String output = "";
-		
-		for(int i = h.getY() - 1; i <= h.getY() + 1; i++) { 
-			for(int j = 0; j <3; j++) { 
-				for(int k = h.getX() - 1; k <= h.getX() + 1; k++) { 
+
+		for (int i = h.getY() - 1; i <= h.getY() + 1; i++) {
+			for (int j = 0; j < 3; j++) {
+				for (int k = h.getX() - 1; k <= h.getX() + 1; k++) {
 					try {
-						if(j == 0) { output += dungeonArray[i][k].getTop() + " ";
-						} else if(j == 1) {
-							output += dungeonArray[i][k].getMid() + " "; 
-						} else if(j == 2) { 
-							output += dungeonArray[i][k].getBot() + " "; 
-						} 
-					} catch(ArrayIndexOutOfBoundsException e) {
-						output += "* * * "; 
-					} 
-					
-				} output += "\n"; 		
-			} 	
-		} 
-		
+						if (j == 0) {
+							output += dungeonArray[i][k].getTop() + " ";
+						} else if (j == 1) {
+							output += dungeonArray[i][k].getMid() + " ";
+						} else if (j == 2) {
+							output += dungeonArray[i][k].getBot() + " ";
+						}
+					} catch (ArrayIndexOutOfBoundsException e) {
+						output += "* * * ";
+					}
+
+				}
+				output += "\n";
+			}
+		}
+
 		return output;
 	}
-	
+
 	public String toString() {
 		String dungeonString = "";
 		for (int i = 0; i < dungeonArray.length; i++) {
@@ -211,21 +213,21 @@ public class Dungeon implements Serializable {
 		}
 		return dungeonString;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		Dungeon d = new Dungeon(5, 5, 5);
-		
+
 		HeroFactory hf = new HeroFactory();
 		Hero h = hf.createHero(Heros.Warrior);
-		
+
 		Room ent = d.manageEntrance(h);
-		
+
 		System.out.println(ent);
 		System.out.println("Hero X:" + h.getX() + ", Hero Y:" + h.getY());
 		System.out.println(d.toString());
 		System.out.println();
-		
+
 	}
 
 }
