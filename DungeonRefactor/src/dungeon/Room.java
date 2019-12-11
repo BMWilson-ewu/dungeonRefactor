@@ -57,6 +57,9 @@ public class Room implements Serializable {
 	}
 
 	public ArrayList<Items> getItems() {
+		ArrayList<Items> i = this.items;
+		this.items.clear();
+		setLetter();
 		return this.items;
 	}
 
@@ -142,16 +145,17 @@ public class Room implements Serializable {
 		if (this.m != null) {
 			letter += "X";
 		}
-		for (Items item : this.items) {
-			letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
+		if(this.items.size() != 0) {
+			for (Items item : this.items) {
+				letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
+			}
 		}
-
 		if (letter.length() > 1) {
-			this.mid = "* M *";
+			this.mid = this.mid.substring(0, 2) + "M" + this.mid.substring(3);
 		} else if (letter.length() == 1) {
-			this.mid = "* " + letter + " *";
+			this.mid = this.mid.substring(0, 2) + letter + this.mid.substring(3);
 		} else {
-			this.mid = "* E *";
+			this.mid = this.mid.substring(0, 2) + "E" + this.mid.substring(3);
 		}
 	}
 

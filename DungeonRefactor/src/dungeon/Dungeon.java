@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.*;
 
 import entities.Hero;
+import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
+import enums.Heros;
 import enums.Items;
 import enums.Monsters;
 
@@ -62,7 +64,7 @@ public class Dungeon implements Serializable {
 	private void populateRoomItems(int x, int y) {
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
-				dungeonArray[i][j].populateRoomItems(dungeonArray, x, y);
+				dungeonArray[i][j].populateRoomItems(dungeonArray, j, i);
 			}
 		}
 	}
@@ -152,6 +154,21 @@ public class Dungeon implements Serializable {
 		return nextRoom;
 	}
 	
+	public Room manageEntrance(Hero h) {
+		
+		for(int i = 0; i < dungeonArray.length; i++) {
+			for(int j = 0; j < dungeonArray[0].length; j++) {
+				Items item = dungeonArray[i][j].getUniqueItem();
+				if(item == Items.Entrance) {
+					h.setY(i);
+					h.setX(j);
+					return dungeonArray[i][j];
+				}
+			}
+		}
+		return null;
+	}
+	
 	public String displayVision(Hero h) {
 		String output = "";
 		
@@ -193,6 +210,22 @@ public class Dungeon implements Serializable {
 			}
 		}
 		return dungeonString;
+	}
+	
+	public static void main(String[] args) {
+		
+		Dungeon d = new Dungeon(5, 5, 5);
+		
+		HeroFactory hf = new HeroFactory();
+		Hero h = hf.createHero(Heros.Warrior);
+		
+		Room ent = d.manageEntrance(h);
+		
+		System.out.println(ent);
+		System.out.println("Hero X:" + h.getX() + ", Hero Y:" + h.getY());
+		System.out.println(d.toString());
+		System.out.println();
+		
 	}
 
 }

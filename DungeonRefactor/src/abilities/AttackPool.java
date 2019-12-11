@@ -16,7 +16,6 @@ public class AttackPool {
 	private HashMap<Abilities, SpecialAbility> specialAbility;
 	private HashMap<Weapons, Weapon> weapons;
 	private HashMap<Items, Item> items;
-	private Item trap;
 
 	private AttackPool() {
 		this.attack = new BasicAttack();
@@ -24,7 +23,6 @@ public class AttackPool {
 		this.specialAbility = generateSpecialAbilities();
 		this.weapons = generateWeapons();
 		this.items = generateItems();
-		this.trap = new Pit();
 	}
 
 	private HashMap<Abilities, SpecialAbility> generateSpecialAbilities() {
@@ -63,6 +61,7 @@ public class AttackPool {
 		items.put(Items.PillarOfEncapsulation, new PillarOfEncapsulation());
 		items.put(Items.PillarOfInheritance, new PillarOfInheritance());
 		items.put(Items.PillarOfPolymorphism, new PillarOfPolymorphism());
+		items.put(Items.Pit, new Pit());
 		return items;
 	}
 
@@ -100,10 +99,6 @@ public class AttackPool {
 
 	public BasicHeal getBasicHeal() {
 		return this.heal;
-	}
-
-	public Item getTrap() {
-		return this.trap;
 	}
 
 }
