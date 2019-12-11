@@ -56,6 +56,7 @@ public class Dungeon implements Serializable {
 				}
 			}
 		}
+
 	}
 
 	private void populateRoomItems(int x, int y) {
@@ -99,6 +100,7 @@ public class Dungeon implements Serializable {
 		ArrayList<Monster> group = new ArrayList<Monster>();
 		for (int i = 0; i < num; i++) {
 			group.add(generateMonster());
+
 		}
 		return group;
 	}
