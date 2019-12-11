@@ -11,7 +11,7 @@ public class Smite implements SpecialAbility {
 		if (smite <= .4) {
 			int damage = (int) (Math.random() * 88);
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
-			System.out.println(source.getName() + " SMITES the with his attack" + enemy.getName() + " for " + damage
+			System.out.println(source.getName() + " SMITES the " + enemy.getName() + " for " + damage
 					+ " extra damage!");
 			enemy.subtractHitPoints(damage);
 		} else if (smite >= .9) {

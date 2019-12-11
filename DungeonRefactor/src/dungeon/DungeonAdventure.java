@@ -3,7 +3,6 @@ package dungeon;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import abilities.AttackPool;
 import entities.Hero;
 import entities.HeroFactory;
@@ -13,15 +12,6 @@ import enums.Items;
 
 
 public class DungeonAdventure {
-	
-	public static void Intro() {
-		System.out.println("------Welcome Adventurer!------");
-		System.out.println("You have answered a quest for the promise of adventure and LOOT upon "
-				+ "exploring a mysterious cave.\nAs you reach the cave you find a sign posted at the entrance, it reads: " + "\n\n"
-				+ "“Adventurers and Heroes complete the dungeon inside here by collecting the four pillars of OO."
-				+ "\nBeware many obstacles will be in your way, \r\n" + 
-				"some helpful items can also be found to keep you alive.“");
-	}
 	
 	public static void main(String[] args) {
 		Hero theHero;
@@ -58,6 +48,8 @@ public class DungeonAdventure {
 			System.out.println(theHero.toString());
 			
 		}while (playAgain(kin));
+		
+		Victory();
 	}
 	
 	private static Hero chooseHero(Scanner kin) {
@@ -112,7 +104,7 @@ public class DungeonAdventure {
 			while (theHero.getTurns() > 0 && theMonster.isAlive()) {
 				int option = 0;
 				System.out.println("1. Attack Opponent");
-				System.out.println("2. " + theHero.readSpecial());
+				System.out.println("2. " + AttackPool.getInstanceOf().getSpecialAbility(theHero.specialAttack).specialDesc());
 				System.out.print("Choose an option: ");
 				try {
 					option = kin.nextInt();
@@ -161,6 +153,15 @@ public class DungeonAdventure {
 		again = kin.nextLine();
 
 		return (again.equals("Y") || again.equals("y"));
+	}
+	
+	public static void Intro() {
+		System.out.println("------Welcome Adventurer!------");
+		System.out.println("You have answered a quest for the promise of adventure and LOOT upon "
+				+ "exploring a mysterious cave.\nAs you reach the cave you find a sign posted at the entrance, it reads: " + "\n\n"
+				+ "“Adventurers and Heroes complete the dungeon inside here by collecting the four pillars of OO."
+				+ "\nBeware many obstacles will be in your way, \r\n" + 
+				"some helpful items can also be found to keep you alive.“");
 	}
 
 	public static void Victory() {
