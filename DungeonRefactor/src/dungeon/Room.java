@@ -1,5 +1,6 @@
 package dungeon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,8 +9,9 @@ import entities.Hero;
 import entities.Monster;
 import enums.Items;
 
-public class Room {
+public class Room implements Serializable {
 
+	private static final long serialVersionUID = 5977389200185624172L;
 	private String top;
 	private String mid;
 	private String bot;
@@ -32,9 +34,53 @@ public class Room {
 		trapChance = .1;
 	}
 
+	public boolean hasMonster() {
+		return m != null;
+	}
+
+	public Monster getMonster() {
+		return this.m;
+	}
+
+	public void setMonster(Monster monster) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Room already has a Monster");
+		}
+		this.m = monster;
+	}
+
+	public boolean hasItems() {
+		return items.size() > 0;
+	}
+
+	public ArrayList<Items> getItems() {
+		return this.items;
+	}
+
+	public void setItem(Items item) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Passed item was null");
+		}
+		items.add(item);
+	}
+
+	public boolean hasUniqueItem() {
+		return this.uniqueItem != null;
+	}
+
+	public Items getUniqueItem() {
+		return this.uniqueItem;
+	}
+
+	public void setUnique(Items item) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Room already has a Unique Item");
+		}
+		this.uniqueItem = item;
+	}
+
 	public void buildRoom(Room[][] dungeon, int x, int y) {
 		try {
-			Room r = dungeon[y][x];
 			if (y > 0) {
 				top = "* - *";
 			}
@@ -48,25 +94,13 @@ public class Room {
 				mid = mid.substring(0, dungeon[0].length - 1) + "|";
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			/*
-			 * System.out.println("Invalid index passed to buildRoom...x=" + x + ", y=" +
-			 * y); e.printStackTrace();
-			 */
-		}
-	}
 
-	public boolean setUnique(Items item) {
-		if (this.uniqueItem == null) {
-			this.uniqueItem = item;
-			return true;
-		} else {
-			return false;
 		}
 	}
 
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
-			String message =  AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
+			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
 			this.uniqueItem = null;
 			return message;
 		} else {
@@ -74,10 +108,9 @@ public class Room {
 		}
 	}
 
-	// this method should be called after setUnique and setMonster to work properly
 	public void populateRoomItems(Room[][] dungeon, int x, int y) {
 		buildRoom(dungeon, x, y);
-		if (uniqueItem == null) {
+		if (!hasUniqueItem()) {
 			Random rng = new Random();
 			double chance = rng.nextDouble();
 			if (chance < healPotChance) {
@@ -112,21 +145,6 @@ public class Room {
 		} else if (letter.length() == 1) {
 			this.mid = "* " + letter + " *";
 		}
-	}
-
-	public boolean setMonster(Monster m) {
-		if (this.m == null && this.uniqueItem == null) {
-			this.m = m;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public Monster getMonster() {
-		Monster toRet = this.m;
-		this.m = null;
-		return toRet;
 	}
 
 	public String toString() {

@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,8 +9,9 @@ import enums.Abilities;
 import enums.Items;
 import enums.Weapons;
 
-public class Hero extends DungeonCharacter {
+public class Hero extends DungeonCharacter  implements Serializable {
 
+	private static final long serialVersionUID = 7325368055168446121L;
 	private double chanceToBlock;
 	private ArrayList<Items> items;
 	private Abilities specialAttack;
