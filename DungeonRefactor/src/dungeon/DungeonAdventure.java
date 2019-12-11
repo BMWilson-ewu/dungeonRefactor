@@ -138,7 +138,7 @@ public class DungeonAdventure {
 		} else if(choice == 32301) {
 			toRet = h.createHero(Heros.Floridaman);
 		}else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
 			return chooseHero(kin);
 		}
 		kin.nextLine();

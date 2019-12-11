@@ -39,11 +39,14 @@ public class Room implements Serializable {
 	}
 
 	public Monster getMonster() {
-		return this.m;
+		Monster mon = this.m;
+		this.m = null;
+		setLetter();
+		return mon;
 	}
 
 	public void setMonster(Monster monster) {
-		if (hasUniqueItem()) {
+		if (hasMonster()) {
 			throw new IllegalArgumentException("Room already has a Monster");
 		}
 		this.m = monster;
@@ -58,7 +61,7 @@ public class Room implements Serializable {
 	}
 
 	public void setItem(Items item) {
-		if (hasUniqueItem()) {
+		if (item == null) {
 			throw new IllegalArgumentException("Passed item was null");
 		}
 		items.add(item);
@@ -98,11 +101,13 @@ public class Room implements Serializable {
 		}
 	}
 	
-	//fix to not remove Entrance/Exit
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
 			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
-			this.uniqueItem = null;
+			if(uniqueItem != Items.Entrance && uniqueItem != Items.Exit) {
+				this.uniqueItem = null;
+			}
+			setLetter();
 			return message;
 		} else {
 			return "";
@@ -145,6 +150,8 @@ public class Room implements Serializable {
 			this.mid = "* M *";
 		} else if (letter.length() == 1) {
 			this.mid = "* " + letter + " *";
+		} else {
+			this.mid = "* E *";
 		}
 	}
 
