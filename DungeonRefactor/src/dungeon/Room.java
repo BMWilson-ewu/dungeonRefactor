@@ -1,22 +1,23 @@
 package dungeon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import abilities.AttackPool;
 import entities.Hero;
 import entities.Monster;
-import items.HealPot;
-import items.Pit;
-import items.RoomItem;
-import items.VisionPot;
+import enums.Items;
 
-public class Room {
+public class Room implements Serializable {
+
+	private static final long serialVersionUID = 5977389200185624172L;
 	private String top;
 	private String mid;
 	private String bot;
-	private ArrayList<RoomItem> items;
+	private ArrayList<Items> items;
 	private Monster m;
-	private RoomItem uniqueItem;
+	private Items uniqueItem;
 	private double healPotChance;
 	private double visPotChance;
 	private double trapChance;
@@ -25,7 +26,7 @@ public class Room {
 		top = "* * *";
 		mid = "* E *";
 		bot = "* * *";
-		items = new ArrayList<RoomItem>();
+		items = new ArrayList<Items>();
 		m = null;
 		uniqueItem = null;
 		healPotChance = .1;
@@ -33,14 +34,53 @@ public class Room {
 		trapChance = .1;
 	}
 
-	/*
-	 * public void setTop(String s) { this.top = s; } public void setMid(String s) {
-	 * this.mid = s; } public void setBot(String s) { this.top = s; }
-	 */
+	public boolean hasMonster() {
+		return m != null;
+	}
+
+	public Monster getMonster() {
+		return this.m;
+	}
+
+	public void setMonster(Monster monster) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Room already has a Monster");
+		}
+		this.m = monster;
+	}
+
+	public boolean hasItems() {
+		return items.size() > 0;
+	}
+
+	public ArrayList<Items> getItems() {
+		return this.items;
+	}
+
+	public void setItem(Items item) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Passed item was null");
+		}
+		items.add(item);
+	}
+
+	public boolean hasUniqueItem() {
+		return this.uniqueItem != null;
+	}
+
+	public Items getUniqueItem() {
+		return this.uniqueItem;
+	}
+
+	public void setUnique(Items item) {
+		if (hasUniqueItem()) {
+			throw new IllegalArgumentException("Room already has a Unique Item");
+		}
+		this.uniqueItem = item;
+	}
 
 	public void buildRoom(Room[][] dungeon, int x, int y) {
 		try {
-			Room r = dungeon[y][x];
 			if (y > 0) {
 				top = "* - *";
 			}
@@ -54,48 +94,36 @@ public class Room {
 				mid = mid.substring(0, dungeon[0].length - 1) + "|";
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			/*
-			 * System.out.println("Invalid index passed to buildRoom...x=" + x + ", y=" +
-			 * y); e.printStackTrace();
-			 */
+
 		}
 	}
-
-	public boolean setUnique(RoomItem item) {
-		if (this.uniqueItem == null) {
-			this.uniqueItem = item;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+	
+	//fix to not remove Entrance/Exit
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
-			RoomItem item = this.uniqueItem;
-			uniqueItem = null;
-			return item.interact(h);
+			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
+			this.uniqueItem = null;
+			return message;
 		} else {
 			return "";
 		}
 	}
 
-	// this method should be called after setUnique and setMonster to work properly
 	public void populateRoomItems(Room[][] dungeon, int x, int y) {
 		buildRoom(dungeon, x, y);
-		if (uniqueItem == null) {
+		if (!hasUniqueItem()) {
 			Random rng = new Random();
 			double chance = rng.nextDouble();
 			if (chance < healPotChance) {
-				items.add(new HealPot());
+				items.add(Items.HealingPotion);
 			}
 			chance = rng.nextDouble();
 			if (chance < visPotChance) {
-				items.add(new VisionPot());
+				items.add(Items.VisionPotion);
 			}
 			chance = rng.nextDouble();
 			if (chance < trapChance) {
-				items.add((RoomItem) new Pit()); // BAD HERE
+				items.add(Items.Pit);
 			}
 		}
 		setLetter();
@@ -104,13 +132,13 @@ public class Room {
 	private void setLetter() {
 		String letter = "";
 		if (this.uniqueItem != null) {
-			letter += this.uniqueItem.getAbbreviation();
+			letter += AttackPool.getInstanceOf().getItem(uniqueItem).getAbbreviation();
 		}
 		if (this.m != null) {
 			letter += "X";
 		}
-		for (RoomItem item : this.items) {
-			letter += item.getAbbreviation();
+		for (Items item : this.items) {
+			letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
 		}
 
 		if (letter.length() > 1) {
@@ -118,21 +146,6 @@ public class Room {
 		} else if (letter.length() == 1) {
 			this.mid = "* " + letter + " *";
 		}
-	}
-
-	public boolean setMonster(Monster m) {
-		if (this.m == null && this.uniqueItem == null) {
-			this.m = m;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public Monster getMonster() {
-		Monster toRet = this.m;
-		this.m = null;
-		return toRet;
 	}
 
 	public String toString() {

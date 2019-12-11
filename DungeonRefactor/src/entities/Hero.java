@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,8 +9,9 @@ import enums.Abilities;
 import enums.Items;
 import enums.Weapons;
 
-public class Hero extends DungeonCharacter {
+public class Hero extends DungeonCharacter  implements Serializable {
 
+	private static final long serialVersionUID = 7325368055168446121L;
 	private double chanceToBlock;
 	private ArrayList<Items> items;
 	private Abilities specialAttack;
@@ -45,7 +47,7 @@ public class Hero extends DungeonCharacter {
 		return count;
 	}
 	
-	public int getNumVision() {
+	private int getNumVision() {
 		int count = 0;
 		for(Items item: items) {
 			if(item == Items.VisionPotion) {
@@ -68,7 +70,7 @@ public class Hero extends DungeonCharacter {
 		}
 	}
 
-	public void consumeVision(/* Room[][] dungeon */) {
+	public void consumeVision() {
 		for(Items item: items) {
 			if(item == Items.VisionPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
