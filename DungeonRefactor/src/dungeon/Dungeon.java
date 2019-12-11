@@ -229,6 +229,42 @@ public class Dungeon {
 		return items;
 	}
 	
+	public Room moveHero(Hero h, String s) {
+		
+		int heroX = h.getX();
+		int heroY = h.getY();
+		Room curRoom = dungeonArray[heroY][heroX];
+		Room nextRoom = new Room();
+		
+		try {
+			switch(s) {
+			case("North"):
+				heroY = heroY - 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("South"):
+				heroY = heroY + 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("East"):
+				heroX = heroX + 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			case("West"):
+				heroX = heroX - 1;
+				nextRoom = dungeonArray[heroY][heroX];
+				break;
+			}
+			h.setX(heroX);
+			h.setY(heroY);
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println(h.getName() + " cannot move " + s);
+			return curRoom;
+		}
+		
+		return nextRoom;
+	}
+	
 	public String displayVision(Hero h) {
 		String output = "";
 		
