@@ -9,8 +9,6 @@ import enums.Heros;
 import enums.Monsters;
 import items.Entrance;
 import items.Exit;
-import items.PillarItem;
-import items.RoomItem;
 
 public class Dungeon {
 	
@@ -52,12 +50,7 @@ public class Dungeon {
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-	}
 
-	
-	
 	private ArrayList<Monster> generateMonsterList(int num){
 		ArrayList<Monster> group = new ArrayList<Monster>();
 		for(int i = 0; i < num; i++) {
