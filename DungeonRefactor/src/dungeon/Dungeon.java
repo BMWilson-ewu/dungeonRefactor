@@ -4,13 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import entities.Hero;
-import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
-import enums.Heros;
 import enums.Monsters;
-import items.Entrance;
-import items.Exit;
 import enums.Items;
 
 public class Dungeon implements Serializable {
@@ -196,6 +192,10 @@ public class Dungeon implements Serializable {
 		}
 
 		return output;
+	}
+	
+	public void setDungeon(Dungeon d) {
+		this.dungeonArray = d.dungeonArray;
 	}
 
 	public String toString() {

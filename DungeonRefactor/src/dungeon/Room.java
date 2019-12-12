@@ -169,6 +169,15 @@ public class Room implements Serializable {
 			this.mid = this.mid.substring(0, 2) + "E" + this.mid.substring(3);
 		}
 	}
+	
+	public void setRoom(Room r) {
+		this.top = r.top;
+		this.mid = r.mid;
+		this.bot = r.bot;
+		this.items = r.items;
+		this.m = r.m;
+		this.uniqueItem = r.uniqueItem;
+	}
 
 	public String toString() {
 		return top + "\n" + mid + "\n" + bot;

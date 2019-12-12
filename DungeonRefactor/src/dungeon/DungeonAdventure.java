@@ -129,11 +129,24 @@ public class DungeonAdventure {
 			return curRoom;
 
 		case 7:
-			// save
+			try {
+				saveState(theDungeon, curRoom, theHero);
+			} catch(IOException e) {
+				System.out.println("Could not save dungeon state...");
+				e.printStackTrace();
+			}
 			return curRoom;
 
 		case 8:
-			// load
+			try {
+				ArrayList<Object> saves = loadSerializedFile();
+				theDungeon.setDungeon((Dungeon)saves.get(0));
+				curRoom.setRoom((Room)saves.get(1));
+				theHero.setCharacter((Hero)saves.get(2));
+			} catch(Exception e) {
+				System.out.println("Could not load dungeon state...");
+				e.printStackTrace();
+			}
 			return curRoom;
 		default:
 			throw new IllegalArgumentException("Invalid Action");
@@ -270,6 +283,7 @@ public class DungeonAdventure {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(saveFile));
 			itemsToLoad = (ArrayList<Object>) in.readObject();
 			in.close();
+			System.out.println("Adventure loaded!");
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -284,8 +298,9 @@ public class DungeonAdventure {
 		try {
 			File saveFile = new File("./saveGame");
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveFile));
-			out.writeObject(out);
+			out.writeObject(itemsToSave);
 			out.close();
+			System.out.println("Adventure saved!");
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
