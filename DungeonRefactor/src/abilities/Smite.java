@@ -16,7 +16,7 @@ public class Smite implements SpecialAbility {
 		double smite = Math.random();
 		if (smite <= .4) {
 			int damage = (int) (Math.random() * 88);
-			AttackPool.getInstanceOf().getbasicAttack().attack(source, target);
+			AttackPool.getInstanceOf().getBasicAttack().attack(source, target);
 			System.out.println(
 					source.getName() + " SMITES the " + target.getName() + " for " + damage + " extra damage!");
 			target.subtractHitPoints(damage);
@@ -24,7 +24,7 @@ public class Smite implements SpecialAbility {
 			System.out.println(source.getName() + " failed to land the attack!");
 		} else {
 			System.out.println(source.getName() + " attacks but fails to smite");
-			AttackPool.getInstanceOf().getbasicAttack().attack(source, target);
+			AttackPool.getInstanceOf().getBasicAttack().attack(source, target);
 		}
 	}
 

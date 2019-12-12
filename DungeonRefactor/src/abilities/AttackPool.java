@@ -1,7 +1,6 @@
 package abilities;
 
 import java.util.HashMap;
-
 import enums.Abilities;
 import enums.Items;
 import enums.Weapons;
@@ -93,7 +92,7 @@ public class AttackPool {
 		return items.get(item);
 	}
 
-	public BasicAttack getbasicAttack() {
+	public BasicAttack getBasicAttack() {
 		return this.attack;
 	}
 

@@ -17,11 +17,11 @@ public class SneakAttack implements SpecialAbility {
 		if (surprise <= .4) {
 			System.out.println("Surprise attack was successful!\n" + source.getName() + " gets an additional turn.");
 			source.setTurns(source.getTurns() + 1);
-			AttackPool.getInstanceOf().getbasicAttack().attack(source, target);
+			AttackPool.getInstanceOf().getBasicAttack().attack(source, target);
 		} else if (surprise >= .9) {
 			System.out.println("Uh oh! " + target.getName() + " saw you and" + " blocked your attack!");
 		} else
-			AttackPool.getInstanceOf().getbasicAttack().attack(source, target);
+			AttackPool.getInstanceOf().getBasicAttack().attack(source, target);
 	}
 
 	public String specialDesc() {

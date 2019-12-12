@@ -323,12 +323,12 @@ class AttackPoolTests {
 	
 	@Test
 	void getbasicAttack_returnOfBasicAttackIsNotNull_TRUE() {
-		assertTrue(AttackPool.getInstanceOf().getbasicAttack() != null);
+		assertTrue(AttackPool.getInstanceOf().getBasicAttack() != null);
 	}
 	
 	@Test
 	void getbasicAttack_returnOfBasicAttackIsInstanceOfBasicAttack_TRUE() {
-		assertTrue(AttackPool.getInstanceOf().getbasicAttack() instanceof BasicAttack);
+		assertTrue(AttackPool.getInstanceOf().getBasicAttack() instanceof BasicAttack);
 	}
 
 	@Test

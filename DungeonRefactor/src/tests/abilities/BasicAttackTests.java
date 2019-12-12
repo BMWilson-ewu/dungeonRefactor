@@ -16,7 +16,7 @@ class BasicAttackTests {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
 		{
 			HeroFactory generateHero = new HeroFactory();
-			AttackPool.getInstanceOf().getbasicAttack().attack(null, generateHero.createHero(Heros.Warrior));
+			AttackPool.getInstanceOf().getBasicAttack().attack(null, generateHero.createHero(Heros.Warrior));
 		});
 		assertEquals("Atacker passed was null.", exception.getMessage());
 	}
@@ -27,7 +27,7 @@ class BasicAttackTests {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
 		{
 			HeroFactory generateHero = new HeroFactory();
-			AttackPool.getInstanceOf().getbasicAttack().attack(generateHero.createHero(Heros.Warrior), null);
+			AttackPool.getInstanceOf().getBasicAttack().attack(generateHero.createHero(Heros.Warrior), null);
 		});
 		assertEquals("Defender passed was null.", exception.getMessage());
 	}
