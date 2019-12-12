@@ -21,7 +21,7 @@ public class Dungeon implements Serializable {
 	public Dungeon(int x, int y, int monsters) {
 		generateDungeon(x, y);
 		populateUniqueItems(x, y);
-		//populateMonsters(x, y, monsters);
+		populateMonsters(x, y, monsters);
 		populateRoomItems(x, y);
 	}
 

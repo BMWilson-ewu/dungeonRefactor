@@ -195,7 +195,7 @@ public class DungeonAdventure {
 				}
 
 				if (option == 1) {
-					AttackPool.getInstanceOf().getbasicAttack().attack(theHero, theMonster);
+					AttackPool.getInstanceOf().getBasicAttack().attack(theHero, theMonster);
 				} else if (option == 2) {
 					theHero.special(theMonster);
 				} else {
@@ -209,7 +209,7 @@ public class DungeonAdventure {
 			kin.nextLine();
 
 			if (theMonster.isAlive()) {
-				AttackPool.getInstanceOf().getbasicAttack().attack(theMonster, theHero);
+				AttackPool.getInstanceOf().getBasicAttack().attack(theMonster, theHero);
 
 				System.out.print("\n-->q to quit, anything else to continue: ");
 				pause = kin.nextLine();
