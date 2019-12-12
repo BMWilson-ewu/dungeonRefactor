@@ -9,7 +9,7 @@ import enums.Abilities;
 import enums.Items;
 import enums.Weapons;
 
-public class Hero extends DungeonCharacter  implements Serializable {
+public class Hero extends DungeonCharacter implements Serializable {
 
 	private static final long serialVersionUID = 7325368055168446121L;
 	private double chanceToBlock;
@@ -26,44 +26,42 @@ public class Hero extends DungeonCharacter  implements Serializable {
 
 	public int getNumPillars() {
 		int count = 0;
-		for(Items item: items) {
-			if(item == Items.PillarOfAbstraction ||
-					item == Items.PillarOfEncapsulation ||
-					item == Items.PillarOfInheritance ||
-					item == Items.PillarOfPolymorphism) {
+		for (Items item : items) {
+			if (item == Items.PillarOfAbstraction || item == Items.PillarOfEncapsulation
+					|| item == Items.PillarOfInheritance || item == Items.PillarOfPolymorphism) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
+
 	private int getNumHeal() {
 		int count = 0;
-		for(Items item: items) {
-			if(item == Items.HealingPotion) {
+		for (Items item : items) {
+			if (item == Items.HealingPotion) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
+
 	private int getNumVision() {
 		int count = 0;
-		for(Items item: items) {
-			if(item == Items.VisionPotion) {
+		for (Items item : items) {
+			if (item == Items.VisionPotion) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
+
 	public void addItem(Items item) {
 		items.add(item);
 	}
 
 	public void consumeHeal() {
-		for(Items item: items) {
-			if(item == Items.HealingPotion) {
+		for (Items item : items) {
+			if (item == Items.HealingPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
 				this.items.remove(item);
 			}
@@ -71,8 +69,8 @@ public class Hero extends DungeonCharacter  implements Serializable {
 	}
 
 	public void consumeVision() {
-		for(Items item: items) {
-			if(item == Items.VisionPotion) {
+		for (Items item : items) {
+			if (item == Items.VisionPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
 				this.items.remove(item);
 			}
