@@ -171,6 +171,9 @@ public class Room implements Serializable {
 	}
 	
 	public void setRoom(Room r) {
+		if(r == null) {
+			throw new IllegalArgumentException();
+		}
 		this.top = r.top;
 		this.mid = r.mid;
 		this.bot = r.bot;

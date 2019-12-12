@@ -17,6 +17,12 @@ import dungeon.entities.Monster;
 import dungeon.enums.Heros;
 import dungeon.enums.Items;
 
+//During the process of developing this project, our group has been highly cooperative. General
+//responsibilities are outlined here:
+//Hunter Rich: Lead on unit tests, memento, and enumeration
+//Bryan Wilson: Lead on Room and Dungeon design, and general item behaviors
+//Justin Entz: Lead on addition of new hero and monster types, and design of DungeonAdventure
+
 public class DungeonAdventure {
 
 	public static void main(String[] args) {
@@ -32,7 +38,6 @@ public class DungeonAdventure {
 
 			Hero theHero = chooseHero(kin);
 			Room curRoom = theDungeon.manageEntrance(theHero);
-			System.out.println(theDungeon.toString());
 
 			do {
 
@@ -84,7 +89,7 @@ public class DungeonAdventure {
 	}
 
 	private static int chooseAction(Scanner yeet) {
-
+		//Secret key to display whole dungeon: 627
 		int action = 0;
 		do {
 			System.out.println("What do you want to do?\n" + 
@@ -101,7 +106,7 @@ public class DungeonAdventure {
 			} catch (Exception e) {
 				System.out.println("Please enter valid number(1-8)");
 			}
-		} while (action < 0 || action > 8);
+		} while ((action < 0 || action > 8) && action != 627);
 
 		return action;
 	}
@@ -149,6 +154,9 @@ public class DungeonAdventure {
 				e.printStackTrace();
 			}
 			return curRoom;
+		case 627:
+			System.out.println(theDungeon.toString());
+			return curRoom;
 		default:
 			throw new IllegalArgumentException("Invalid Action");
 		}
@@ -193,7 +201,6 @@ public class DungeonAdventure {
 	}
 
 	private static void battle(Hero theHero, Monster theMonster, Scanner kin) {
-		String pause = "p";
 		System.out.println(theHero.getName() + " battles " + theMonster.getName());
 		System.out.println("---------------------------------------------");
 
@@ -234,12 +241,9 @@ public class DungeonAdventure {
 			if (theMonster.isAlive()) {
 				AttackPool.getInstanceOf().getBasicAttack().attack(theMonster, theHero);
 
-				System.out.print("\n-->q to quit, anything else to continue: ");
-				pause = kin.nextLine();
-
 			}
 
-		} while (theHero.isAlive() && theMonster.isAlive() && !pause.equals("q"));
+		} while (theHero.isAlive() && theMonster.isAlive());
 
 		if (!theMonster.isAlive())
 			System.out.println(theHero.getName() + " was victorious!");
@@ -277,7 +281,7 @@ public class DungeonAdventure {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static final ArrayList<Object> loadSerializedFile() throws IOException, ClassNotFoundException {
+	private static final ArrayList<Object> loadSerializedFile() throws IOException, ClassNotFoundException {
 		ArrayList<Object> itemsToLoad = new ArrayList<Object>();
 		try {
 			File saveFile = new File("./saveGame");
@@ -291,7 +295,7 @@ public class DungeonAdventure {
 		return itemsToLoad;
 	}
 
-	public static final void saveState(Dungeon dungeon, Room currentRoom, Hero hero) throws IOException {
+	private static final void saveState(Dungeon dungeon, Room currentRoom, Hero hero) throws IOException {
 		ArrayList<Object> itemsToSave = new ArrayList<Object>();
 		itemsToSave.add(dungeon);
 		itemsToSave.add(currentRoom);
