@@ -9,12 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import abilities.AttackPool;
-import entities.Hero;
-import entities.HeroFactory;
-import entities.Monster;
-import enums.Heros;
-import enums.Items;
+
+import dungeon.abilities.AttackPool;
+import dungeon.entities.Hero;
+import dungeon.entities.HeroFactory;
+import dungeon.entities.Monster;
+import dungeon.enums.Heros;
+import dungeon.enums.Items;
 
 public class DungeonAdventure {
 

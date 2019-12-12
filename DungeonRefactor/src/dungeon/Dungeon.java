@@ -3,11 +3,11 @@ package dungeon;
 import java.io.Serializable;
 import java.util.*;
 
-import entities.Hero;
-import entities.Monster;
-import entities.MonsterFactory;
-import enums.Monsters;
-import enums.Items;
+import dungeon.entities.Hero;
+import dungeon.entities.Monster;
+import dungeon.entities.MonsterFactory;
+import dungeon.enums.Items;
+import dungeon.enums.Monsters;
 
 public class Dungeon implements Serializable {
 

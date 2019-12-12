@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import abilities.AttackPool;
-import entities.Hero;
-import entities.Monster;
-import enums.Items;
+import dungeon.abilities.AttackPool;
+import dungeon.entities.Hero;
+import dungeon.entities.Monster;
+import dungeon.enums.Items;
 
 public class Room implements Serializable {
 
