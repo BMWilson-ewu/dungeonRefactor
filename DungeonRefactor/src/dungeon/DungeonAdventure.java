@@ -29,12 +29,13 @@ public class DungeonAdventure {
 
 			do {
 
-				System.out.println(curRoom.toString());
-
 				if (curRoom.hasMonster()) {
 					Monster theMonster = curRoom.getMonster();
 					battle(theHero, theMonster, kin);
 				}
+				
+				System.out.println(curRoom.toString());
+				
 				if (theHero.isAlive()) {
 					if (curRoom.hasUniqueItem()) {
 						Items uniqueItem = curRoom.getUniqueItem();
@@ -69,6 +70,7 @@ public class DungeonAdventure {
 			} else {
 				System.out.println("The hero has been defeated!");
 			}
+			kin.nextLine();
 			cont = playAgain(kin);
 		} while (cont);
 
@@ -90,7 +92,7 @@ public class DungeonAdventure {
 			try {
 				action = yeet.nextInt();
 			} catch (Exception e) {
-				System.out.println("Please enter valid number(1-4)");
+				System.out.println("Please enter valid number(1-8)");
 			}
 		} while (action < 0 || action > 8);
 
@@ -159,7 +161,8 @@ public class DungeonAdventure {
 		} else if (choice == 32301) {
 			toRet = h.createHero(Heros.Floridaman);
 		} else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			kin.nextLine();
+			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
 			return chooseHero(kin);
 		}
 		kin.nextLine();

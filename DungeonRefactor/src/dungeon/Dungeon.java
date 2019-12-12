@@ -21,7 +21,7 @@ public class Dungeon implements Serializable {
 	public Dungeon(int x, int y, int monsters) {
 		generateDungeon(x, y);
 		populateUniqueItems(x, y);
-		//populateMonsters(x, y, monsters);
+		populateMonsters(x, y, monsters);
 		populateRoomItems(x, y);
 	}
 
@@ -161,22 +161,10 @@ public class Dungeon implements Serializable {
 
 		for (int i = 0; i < dungeonArray.length; i++) {
 			for (int j = 0; j < dungeonArray[0].length; j++) {
-				Items item = dungeonArray[i][j].getUniqueItem();
+				Items item = dungeonArray[i][j].peekUniqueItem();
 				if (item == Items.Entrance) {
 					h.setY(i);
 					h.setX(j);
-					return dungeonArray[i][j];
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Room manageExit() {
-		for (int i = 0; i < dungeonArray.length; i++) {
-			for (int j = 0; j < dungeonArray[0].length; j++) {
-				Items item = dungeonArray[i][j].getUniqueItem();
-				if (item == Items.Exit) {
 					return dungeonArray[i][j];
 				}
 			}
