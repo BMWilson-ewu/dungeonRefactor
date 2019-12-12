@@ -9,12 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import abilities.AttackPool;
-import entities.Hero;
-import entities.HeroFactory;
-import entities.Monster;
-import enums.Heros;
-import enums.Items;
+
+import dungeon.abilities.AttackPool;
+import dungeon.entities.Hero;
+import dungeon.entities.HeroFactory;
+import dungeon.entities.Monster;
+import dungeon.enums.Heros;
+import dungeon.enums.Items;
 
 //During the process of developing this project, our group has been highly cooperative. General
 //responsibilities are outlined here:
@@ -224,7 +225,7 @@ public class DungeonAdventure {
 				}
 
 				if (option == 1) {
-					AttackPool.getInstanceOf().getbasicAttack().attack(theHero, theMonster);
+					AttackPool.getInstanceOf().getBasicAttack().attack(theHero, theMonster);
 				} else if (option == 2) {
 					theHero.special(theMonster);
 				} else {
@@ -238,7 +239,7 @@ public class DungeonAdventure {
 			kin.nextLine();
 
 			if (theMonster.isAlive()) {
-				AttackPool.getInstanceOf().getbasicAttack().attack(theMonster, theHero);
+				AttackPool.getInstanceOf().getBasicAttack().attack(theMonster, theHero);
 
 			}
 
