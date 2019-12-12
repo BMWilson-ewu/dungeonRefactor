@@ -29,7 +29,7 @@ public class Room implements Serializable {
 		items = new ArrayList<Items>();
 		m = null;
 		uniqueItem = null;
-		healPotChance = .1;
+		healPotChance = .2;
 		visPotChance = .1;
 		trapChance = .1;
 	}
@@ -83,6 +83,10 @@ public class Room implements Serializable {
 		}
 		setLetter();
 		return item;
+	}
+	
+	public Items peekUniqueItem() {
+		return this.uniqueItem;
 	}
 
 	public void setUnique(Items item) {
@@ -164,6 +168,15 @@ public class Room implements Serializable {
 		} else {
 			this.mid = this.mid.substring(0, 2) + "E" + this.mid.substring(3);
 		}
+	}
+	
+	public void setRoom(Room r) {
+		this.top = r.top;
+		this.mid = r.mid;
+		this.bot = r.bot;
+		this.items = r.items;
+		this.m = r.m;
+		this.uniqueItem = r.uniqueItem;
 	}
 
 	public String toString() {

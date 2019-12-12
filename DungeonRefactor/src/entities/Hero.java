@@ -114,6 +114,19 @@ public class Hero extends DungeonCharacter implements Serializable {
 	public int getY() {
 		return this.posY;
 	}
+	
+	
+	public void setCharacter(DungeonCharacter h) {
+		if(h instanceof Hero){
+			super.setCharacter(h);
+			Hero hero = (Hero) h;
+			this.specialAttack = hero.specialAttack;
+			this.chanceToBlock = hero.chanceToBlock;
+			this.items = hero.items;
+			this.posX = hero.posX;
+			this.posY = hero.posY;
+		} 
+	}
 
 	public String toString() {
 		return "Name: " + this.getName() + "\n" + "Hit Points: " + this.getHitPoints() + "\n" + "Healing Potions: "

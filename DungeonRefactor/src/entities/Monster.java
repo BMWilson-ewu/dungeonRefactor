@@ -1,10 +1,13 @@
 package entities;
 
+import java.io.Serializable;
+
 import abilities.AttackPool;
 import enums.Weapons;
 
-public class Monster extends DungeonCharacter {
+public class Monster extends DungeonCharacter implements Serializable {
 
+	private static final long serialVersionUID = -4784406317110797124L;
 	private double chanceToHeal;
 	private int minHeal, maxHeal;
 
