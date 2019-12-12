@@ -57,10 +57,12 @@ public class Room implements Serializable {
 	}
 
 	public ArrayList<Items> getItems() {
-		ArrayList<Items> i = this.items;
+		return this.items;
+	}
+	
+	public void clearItems() {
 		this.items.clear();
 		setLetter();
-		return i;
 	}
 
 	public void setItem(Items item) {
@@ -75,7 +77,12 @@ public class Room implements Serializable {
 	}
 
 	public Items getUniqueItem() {
-		return this.uniqueItem;
+		Items item = this.uniqueItem;
+		if (item != Items.Entrance && item != Items.Exit) {
+			this.uniqueItem = null;
+		}
+		setLetter();
+		return item;
 	}
 
 	public void setUnique(Items item) {
@@ -103,11 +110,11 @@ public class Room implements Serializable {
 
 		}
 	}
-	
+
 	public String interactUnique(Hero h) {
 		if (uniqueItem != null) {
 			String message = AttackPool.getInstanceOf().getItem(uniqueItem).interact(h);
-			if(uniqueItem != Items.Entrance && uniqueItem != Items.Exit) {
+			if (uniqueItem != Items.Entrance && uniqueItem != Items.Exit) {
 				this.uniqueItem = null;
 			}
 			setLetter();
@@ -145,7 +152,7 @@ public class Room implements Serializable {
 		if (this.m != null) {
 			letter += "X";
 		}
-		if(this.items.size() != 0) {
+		if (this.items.size() != 0) {
 			for (Items item : this.items) {
 				letter += AttackPool.getInstanceOf().getItem(item).getAbbreviation();
 			}

@@ -9,7 +9,8 @@ public class PillarOfPolymorphism implements Item {
 		if (hero == null) {
 			throw new IllegalArgumentException("Passed hero was null.");
 		}
-		return hero.getName() + " picked up a pillar of Inheritance.";
+		hero.addItem(this.getKey());
+		return hero.getName() + " picked up a pillar of Polymorphism.";
 	}
 
 	public String interact(Hero hero) {

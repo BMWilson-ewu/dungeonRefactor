@@ -9,6 +9,7 @@ public class PillarOfEncapsulation implements Item {
 		if (hero == null) {
 			throw new IllegalArgumentException("Passed hero was null.");
 		}
+		hero.addItem(this.getKey());
 		return hero.getName() + " picked up a pillar of Encapsulation.";
 	}
 

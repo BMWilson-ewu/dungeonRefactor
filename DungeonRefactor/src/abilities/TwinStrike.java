@@ -1,7 +1,6 @@
 package abilities;
 
 import entities.DungeonCharacter;
-
 import enums.Abilities;
 
 public class TwinStrike implements SpecialAbility {
@@ -17,7 +16,12 @@ public class TwinStrike implements SpecialAbility {
 		double two = Math.random();
 		if (two <= .4) {
 			System.out.println(source.getName() + " hits twice!");
+<<<<<<< HEAD
 			AttackPool.getInstanceOf().getbasicAttack().attack(source, target);
+=======
+			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
+			AttackPool.getInstanceOf().getbasicAttack().attack(source, enemy);
+>>>>>>> be60dd81033b8b487d41e65dddd86c757aadd169
 		} else if (two >= .8) {
 			System.out.println("Oh no! " + source.getName() + " missed both attacks!");
 		} else {

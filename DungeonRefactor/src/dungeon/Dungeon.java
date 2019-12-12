@@ -8,8 +8,10 @@ import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
 import enums.Heros;
-import enums.Items;
 import enums.Monsters;
+import items.Entrance;
+import items.Exit;
+import enums.Items;
 
 public class Dungeon implements Serializable {
 
@@ -19,7 +21,7 @@ public class Dungeon implements Serializable {
 	public Dungeon(int x, int y, int monsters) {
 		generateDungeon(x, y);
 		populateUniqueItems(x, y);
-		populateMonsters(x, y, monsters);
+		//populateMonsters(x, y, monsters);
 		populateRoomItems(x, y);
 	}
 
@@ -53,8 +55,10 @@ public class Dungeon implements Serializable {
 			while (!placed) {
 				int roomY = (int) (Math.random() * y);
 				int roomX = (int) (Math.random() * x);
-				if (placed = !this.dungeonArray[roomY][roomX].hasMonster()) {
-					this.dungeonArray[roomY][roomX].setMonster(m);
+				if (!this.dungeonArray[roomY][roomX].hasUniqueItem()) {
+					if (placed = !this.dungeonArray[roomY][roomX].hasMonster()) {
+						this.dungeonArray[roomY][roomX].setMonster(m);
+					}
 				}
 			}
 		}
@@ -92,7 +96,6 @@ public class Dungeon implements Serializable {
 			return m.createMonster(Monsters.Bugbear);
 
 		default:
-
 			throw new IllegalArgumentException("Random Object generated a unexpected value of " + choice + ".");
 
 		}
@@ -168,6 +171,18 @@ public class Dungeon implements Serializable {
 		}
 		return null;
 	}
+	
+	public Room manageExit() {
+		for (int i = 0; i < dungeonArray.length; i++) {
+			for (int j = 0; j < dungeonArray[0].length; j++) {
+				Items item = dungeonArray[i][j].getUniqueItem();
+				if (item == Items.Exit) {
+					return dungeonArray[i][j];
+				}
+			}
+		}
+		return null;
+	}
 
 	public String displayVision(Hero h) {
 		String output = "";
@@ -212,22 +227,6 @@ public class Dungeon implements Serializable {
 			}
 		}
 		return dungeonString;
-	}
-
-	public static void main(String[] args) {
-
-		Dungeon d = new Dungeon(5, 5, 5);
-
-		HeroFactory hf = new HeroFactory();
-		Hero h = hf.createHero(Heros.Warrior);
-
-		Room ent = d.manageEntrance(h);
-
-		System.out.println(ent);
-		System.out.println("Hero X:" + h.getX() + ", Hero Y:" + h.getY());
-		System.out.println(d.toString());
-		System.out.println();
-
 	}
 
 }
