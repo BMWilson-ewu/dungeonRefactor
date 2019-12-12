@@ -1,5 +1,11 @@
 package dungeon;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -254,6 +260,35 @@ public class DungeonAdventure {
 		System.out.println("Congratulations by collecting the four pillars of OO!");
 		System.out.println("Your Prize is: ");
 		System.out.println("50 gold pieces");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static final ArrayList<Object> loadSerializedFile() throws IOException, ClassNotFoundException {
+		ArrayList<Object> itemsToLoad = new ArrayList<Object>();
+		try {
+			File saveFile = new File("./saveGame");
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(saveFile));
+			itemsToLoad = (ArrayList<Object>) in.readObject();
+			in.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		return itemsToLoad;
+	}
+
+	public static final void saveState(Dungeon dungeon, Room currentRoom, Hero hero) throws IOException {
+		ArrayList<Object> itemsToSave = new ArrayList<Object>();
+		itemsToSave.add(dungeon);
+		itemsToSave.add(currentRoom);
+		itemsToSave.add(hero);
+		try {
+			File saveFile = new File("./saveGame");
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveFile));
+			out.writeObject(out);
+			out.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

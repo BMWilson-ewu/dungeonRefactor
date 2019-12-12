@@ -5,10 +5,15 @@ import entities.DungeonCharacter;
 public class BasicAttack {
 
 	public void attack(DungeonCharacter source, DungeonCharacter target) {
-		boolean canAttack;
-		int damage;
 
-		canAttack = Math.random() <= source.getChanceToHit();
+		if (source == null) {
+			throw new IllegalArgumentException("Atacker passed was null.");
+		} else if (target == null) {
+			throw new IllegalArgumentException("Defender passed was null.");
+		}
+
+		boolean canAttack = Math.random() <= source.getChanceToHit();
+		int damage = 0;
 
 		if (canAttack) {
 			damage = (int) (Math.random() * (source.getMaxDamage() - source.getMinDamage() + 1))
