@@ -22,6 +22,9 @@ public class Dungeon implements Serializable {
 	}
 
 	private void generateDungeon(int x, int y) {
+		if(x < 3 || y < 3) {
+			throw new IllegalArgumentException("Dungeon may not be smaller than 3 x 3");
+		}
 		this.dungeonArray = new Room[y][x];
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
@@ -31,6 +34,9 @@ public class Dungeon implements Serializable {
 	}
 
 	private void populateUniqueItems(int x, int y) {
+		if(x < 3 || y < 3) {
+			throw new IllegalArgumentException("Dungeon may not be smaller than 3 x 3");
+		}
 		ArrayList<Items> unique = generateUniques();
 		for (Items item : unique) {
 			boolean placed = false;
@@ -45,6 +51,12 @@ public class Dungeon implements Serializable {
 	}
 
 	private void populateMonsters(int x, int y, int monsters) {
+		if(x < 3 || y < 3) {
+			throw new IllegalArgumentException("Dungeon may not be smaller than 3 x 3");
+		}
+		if(((y * x) - monsters) < 6) {
+			throw new IllegalArgumentException("Too many monsters for this dungeon");
+		}
 		ArrayList<Monster> mon = generateMonsterList(monsters);
 		for (Monster m : mon) {
 			boolean placed = false;
@@ -62,6 +74,9 @@ public class Dungeon implements Serializable {
 	}
 
 	private void populateRoomItems(int x, int y) {
+		if(x < 3 || y < 3) {
+			throw new IllegalArgumentException("Dungeon may not be smaller than 3 x 3");
+		}
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				dungeonArray[i][j].populateRoomItems(dungeonArray, j, i);
@@ -118,6 +133,12 @@ public class Dungeon implements Serializable {
 	}
 
 	public Room moveHero(Hero h, String s) {
+		if(h == null) {
+			throw new IllegalArgumentException("Hero passed in was null");
+		}
+		if(s == null) {
+			throw new IllegalArgumentException("String passed in was null");
+		}
 
 		int heroX = h.getX();
 		int heroY = h.getY();
@@ -142,6 +163,9 @@ public class Dungeon implements Serializable {
 				heroX = heroX - 1;
 				nextRoom = dungeonArray[heroY][heroX];
 				break;
+			default:
+				nextRoom = curRoom;
+				break;
 			}
 			h.setX(heroX);
 			h.setY(heroY);
@@ -154,6 +178,9 @@ public class Dungeon implements Serializable {
 	}
 
 	public Room manageEntrance(Hero h) {
+		if(h == null) {
+			throw new IllegalArgumentException("Hero passed in was null");
+		}
 
 		for (int i = 0; i < dungeonArray.length; i++) {
 			for (int j = 0; j < dungeonArray[0].length; j++) {
@@ -169,6 +196,10 @@ public class Dungeon implements Serializable {
 	}
 
 	public String displayVision(Hero h) {
+		if(h == null) {
+			throw new IllegalArgumentException("Hero passed in was null");
+		}
+		
 		String output = "";
 
 		for (int i = h.getY() - 1; i <= h.getY() + 1; i++) {
@@ -195,6 +226,9 @@ public class Dungeon implements Serializable {
 	}
 	
 	public void setDungeon(Dungeon d) {
+		if(d == null) {
+			throw new IllegalArgumentException("Dungeon passed in was null");
+		}
 		this.dungeonArray = d.dungeonArray;
 	}
 
