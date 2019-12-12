@@ -4,13 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import entities.Hero;
-import entities.HeroFactory;
 import entities.Monster;
 import entities.MonsterFactory;
-import enums.Heros;
 import enums.Monsters;
-import items.Entrance;
-import items.Exit;
 import enums.Items;
 
 public class Dungeon implements Serializable {
@@ -161,22 +157,10 @@ public class Dungeon implements Serializable {
 
 		for (int i = 0; i < dungeonArray.length; i++) {
 			for (int j = 0; j < dungeonArray[0].length; j++) {
-				Items item = dungeonArray[i][j].getUniqueItem();
+				Items item = dungeonArray[i][j].peekUniqueItem();
 				if (item == Items.Entrance) {
 					h.setY(i);
 					h.setX(j);
-					return dungeonArray[i][j];
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Room manageExit() {
-		for (int i = 0; i < dungeonArray.length; i++) {
-			for (int j = 0; j < dungeonArray[0].length; j++) {
-				Items item = dungeonArray[i][j].getUniqueItem();
-				if (item == Items.Exit) {
 					return dungeonArray[i][j];
 				}
 			}
@@ -208,6 +192,10 @@ public class Dungeon implements Serializable {
 		}
 
 		return output;
+	}
+	
+	public void setDungeon(Dungeon d) {
+		this.dungeonArray = d.dungeonArray;
 	}
 
 	public String toString() {

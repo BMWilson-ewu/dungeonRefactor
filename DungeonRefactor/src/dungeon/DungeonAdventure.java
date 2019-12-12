@@ -1,5 +1,11 @@
 package dungeon;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,12 +35,13 @@ public class DungeonAdventure {
 
 			do {
 
-				System.out.println(curRoom.toString());
-
 				if (curRoom.hasMonster()) {
 					Monster theMonster = curRoom.getMonster();
 					battle(theHero, theMonster, kin);
 				}
+				
+				System.out.println(curRoom.toString());
+				
 				if (theHero.isAlive()) {
 					if (curRoom.hasUniqueItem()) {
 						Items uniqueItem = curRoom.getUniqueItem();
@@ -69,6 +76,7 @@ public class DungeonAdventure {
 			} else {
 				System.out.println("The hero has been defeated!");
 			}
+			kin.nextLine();
 			cont = playAgain(kin);
 		} while (cont);
 
@@ -90,7 +98,7 @@ public class DungeonAdventure {
 			try {
 				action = yeet.nextInt();
 			} catch (Exception e) {
-				System.out.println("Please enter valid number(1-4)");
+				System.out.println("Please enter valid number(1-8)");
 			}
 		} while (action < 0 || action > 8);
 
@@ -121,11 +129,24 @@ public class DungeonAdventure {
 			return curRoom;
 
 		case 7:
-			// save
+			try {
+				saveState(theDungeon, curRoom, theHero);
+			} catch(IOException e) {
+				System.out.println("Could not save dungeon state...");
+				e.printStackTrace();
+			}
 			return curRoom;
 
 		case 8:
-			// load
+			try {
+				ArrayList<Object> saves = loadSerializedFile();
+				theDungeon.setDungeon((Dungeon)saves.get(0));
+				curRoom.setRoom((Room)saves.get(1));
+				theHero.setCharacter((Hero)saves.get(2));
+			} catch(Exception e) {
+				System.out.println("Could not load dungeon state...");
+				e.printStackTrace();
+			}
 			return curRoom;
 		default:
 			throw new IllegalArgumentException("Invalid Action");
@@ -159,7 +180,8 @@ public class DungeonAdventure {
 		} else if (choice == 32301) {
 			toRet = h.createHero(Heros.Floridaman);
 		} else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 3...");
+			kin.nextLine();
+			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
 			return chooseHero(kin);
 		}
 		kin.nextLine();
@@ -251,6 +273,37 @@ public class DungeonAdventure {
 		System.out.println("Congratulations by collecting the four pillars of OO!");
 		System.out.println("Your Prize is: ");
 		System.out.println("50 gold pieces");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static final ArrayList<Object> loadSerializedFile() throws IOException, ClassNotFoundException {
+		ArrayList<Object> itemsToLoad = new ArrayList<Object>();
+		try {
+			File saveFile = new File("./saveGame");
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(saveFile));
+			itemsToLoad = (ArrayList<Object>) in.readObject();
+			in.close();
+			System.out.println("Adventure loaded!");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		return itemsToLoad;
+	}
+
+	public static final void saveState(Dungeon dungeon, Room currentRoom, Hero hero) throws IOException {
+		ArrayList<Object> itemsToSave = new ArrayList<Object>();
+		itemsToSave.add(dungeon);
+		itemsToSave.add(currentRoom);
+		itemsToSave.add(hero);
+		try {
+			File saveFile = new File("./saveGame");
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveFile));
+			out.writeObject(itemsToSave);
+			out.close();
+			System.out.println("Adventure saved!");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
