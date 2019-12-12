@@ -13,6 +13,7 @@ import items.Entrance;
 import items.Exit;
 import enums.Items;
 
+
 public class Dungeon implements Serializable {
 
 	private static final long serialVersionUID = 4374465783899583065L;
@@ -62,6 +63,7 @@ public class Dungeon implements Serializable {
 		}
 
 	}
+
 
 	private static Hero chooseHero(Scanner kin) {
 		int choice = 0;
@@ -121,7 +123,7 @@ public class Dungeon implements Serializable {
 
 		case 4:
 			return m.createMonster(Monsters.Minotuar);
-			
+
 		case 5:
 			return m.createMonster(Monsters.Bugbear);
 

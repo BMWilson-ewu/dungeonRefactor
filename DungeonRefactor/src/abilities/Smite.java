@@ -3,6 +3,7 @@ package abilities;
 import entities.DungeonCharacter;
 import enums.Abilities;
 
+
 public class Smite implements SpecialAbility {
 	public void special(DungeonCharacter source, DungeonCharacter enemy) {
 		double smite = Math.random();
