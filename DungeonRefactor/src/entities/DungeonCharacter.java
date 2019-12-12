@@ -1,9 +1,12 @@
 package entities;
 
+import java.io.Serializable;
+
 import enums.Weapons;
 
-public abstract class DungeonCharacter {
+public abstract class DungeonCharacter implements Serializable{
 
+	private static final long serialVersionUID = 3792593125795987889L;
 	private String name;
 	private int hitPoints;
 	private int attackSpeed;
@@ -86,6 +89,16 @@ public abstract class DungeonCharacter {
 		if (this.hitPoints == 0)
 			System.out.println(name + " has been killed :-(");
 
+	}
+	
+	public void setCharacter(DungeonCharacter h) {
+		this.name = h.name;
+		this.hitPoints = h.hitPoints;
+		this.attackSpeed = h.attackSpeed;
+		this.chanceToHit = h.chanceToHit;
+		this.damageMin = h.damageMin;
+		this.damageMax = h.damageMax;
+		this.weapon = h.weapon;
 	}
 
 	public boolean isAlive() {
