@@ -21,7 +21,9 @@ public class Hero extends DungeonCharacter implements Serializable {
 	public Hero(String name, int hitPoints, int attackSpeed, double chanceToHit, int damageMin, int damageMax,
 			double chanceToBlock, Abilities sp, Weapons w) {
 		super(name, hitPoints, attackSpeed, chanceToHit, damageMin, damageMax, w);
+		this.specialAttack = sp;
 		this.chanceToBlock = chanceToBlock;
+		this.items = new ArrayList<Items>();
 	}
 
 	public int getNumPillars() {
@@ -64,6 +66,7 @@ public class Hero extends DungeonCharacter implements Serializable {
 			if (item == Items.HealingPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
 				this.items.remove(item);
+				return;
 			}
 		}
 	}
@@ -73,6 +76,7 @@ public class Hero extends DungeonCharacter implements Serializable {
 			if (item == Items.VisionPotion) {
 				System.out.println(AttackPool.getInstanceOf().getItem(item).interact(this));
 				this.items.remove(item);
+				return;
 			}
 		}
 	}
@@ -124,6 +128,10 @@ public class Hero extends DungeonCharacter implements Serializable {
 			super.subtractHitPoints(hitPoints);
 		}
 
+	}
+	
+	public void takeDamage(int hitPoints) {
+		super.subtractHitPoints(hitPoints);
 	}
 
 }

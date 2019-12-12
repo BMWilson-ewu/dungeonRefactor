@@ -14,8 +14,9 @@ public class Pit implements Item {
 	public String interact(Hero hero) {
 		Random rng = new Random();
 		int damage = rng.nextInt(20) + 1;
-		hero.subtractHitPoints(damage);
-		return hero.getName() + " lost " + damage + " hit points due to a pit.";
+		hero.takeDamage(damage);
+		return "";
+		//return hero.getName() + " lost " + damage + " hit points due to a pit.";
 	}
 
 	public String getAbbreviation() {

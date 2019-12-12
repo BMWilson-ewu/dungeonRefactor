@@ -13,42 +13,123 @@ import enums.Items;
 public class DungeonAdventure {
 
 	public static void main(String[] args) {
-		Hero theHero;
-		Dungeon theDungeon = new Dungeon(5, 5, 5);
-		Room curRoom;
 		Scanner kin = new Scanner(System.in);
-
-		Intro();
-		System.out.println();
-
-		theHero = chooseHero(kin);
-		// curRoom = manageEntrance(theHero)
-		curRoom = new Room();
-
+		boolean cont = false;
+		
+		
 		do {
-			if (curRoom.hasMonster()) {
-				theHero = chooseHero(kin);
-				Monster theMonster = curRoom.getMonster();
-				battle(theHero, theMonster, kin);
-			} else if (curRoom.hasUniqueItem()) {
+			Dungeon theDungeon = new Dungeon(5, 5, 5);
+
+			Intro();
+			System.out.println();
+
+			Hero theHero = chooseHero(kin);
+			Room curRoom = theDungeon.manageEntrance(theHero);
+			System.out.println(theDungeon.toString());
+
+			do {
+
+				System.out.println(curRoom.toString());
+
+				if (curRoom.hasMonster()) {
+					Monster theMonster = curRoom.getMonster();
+					battle(theHero, theMonster, kin);
+				}
+				if (theHero.isAlive()) {
+					if (curRoom.hasUniqueItem()) {
+						Items uniqueItem = curRoom.getUniqueItem();
+						System.out.println(AttackPool.getInstanceOf().getItem(uniqueItem).trigger(theHero));
+						System.out.println(AttackPool.getInstanceOf().getItem(uniqueItem).interact(theHero));
+					}
+
+					if (curRoom.hasItems()) {
+						ArrayList<Items> curRoomItems = curRoom.getItems();
+						for (Items i : curRoomItems) {
+							System.out.println(AttackPool.getInstanceOf().getItem(i).trigger(theHero));
+							if (i == Items.Pit) {
+								System.out.println(AttackPool.getInstanceOf().getItem(i).interact(theHero));
+							}
+						}
+						curRoom.clearItems();
+					}
+
+					System.out.println(theHero.toString());
+
+					int act = chooseAction(kin);
+					curRoom = executeAction(act, theHero, theDungeon, curRoom);
+
+				}
+			} while (theHero.isAlive() && (theHero.getNumPillars() != 4 || curRoom.getUniqueItem() != Items.Exit));
+
+			if (theHero.isAlive()) {
 				Items uniqueItem = curRoom.getUniqueItem();
 				System.out.println(AttackPool.getInstanceOf().getItem(uniqueItem).trigger(theHero));
 				System.out.println(AttackPool.getInstanceOf().getItem(uniqueItem).interact(theHero));
-			} else if (curRoom.hasItems()) {
-				ArrayList<Items> curRoomItems = curRoom.getItems();
-				for (Items i : curRoomItems) {
-					System.out.println(AttackPool.getInstanceOf().getItem(i).trigger(theHero));
-				}
+				Victory();
+			} else {
+				System.out.println("The hero has been defeated!");
 			}
+			cont = playAgain(kin);
+		} while (cont);
 
-			System.out.println("Which direction do you want to move?");
-			String direction = kin.nextLine();
-			curRoom = theDungeon.moveHero(theHero, direction);
-			System.out.println(theHero.toString());
+	}
 
-		} while (playAgain(kin));
+	private static int chooseAction(Scanner yeet) {
 
-		Victory();
+		int action = 0;
+		do {
+			System.out.println("What do you want to do?\n" + 
+					"1. Move North\n" + 
+					"2. Move East\n" + 
+					"3. Move South\n"+ 
+					"4. Move West\n" + 
+					"5. Use Healing potion\n" + 
+					"6. Use Vision potion\n" + 
+					"7. Save\n"+ 
+					"8. Load\n");
+			try {
+				action = yeet.nextInt();
+			} catch (Exception e) {
+				System.out.println("Please enter valid number(1-4)");
+			}
+		} while (action < 0 || action > 8);
+
+		return action;
+	}
+
+	private static Room executeAction(int d, Hero theHero, Dungeon theDungeon, Room curRoom) {
+		switch (d) {
+		case 1:
+			return curRoom = theDungeon.moveHero(theHero, "North");
+
+		case 2:
+			return curRoom = theDungeon.moveHero(theHero, "East");
+
+		case 3:
+			return curRoom = theDungeon.moveHero(theHero, "South");
+
+		case 4:
+			return curRoom = theDungeon.moveHero(theHero, "West");
+
+		case 5:
+			theHero.consumeHeal();
+			return curRoom;
+
+		case 6:
+			theHero.consumeVision();
+			System.out.println(theDungeon.displayVision(theHero));
+			return curRoom;
+
+		case 7:
+			// save
+			return curRoom;
+
+		case 8:
+			// load
+			return curRoom;
+		default:
+			throw new IllegalArgumentException("Invalid Action");
+		}
 	}
 
 	private static Hero chooseHero(Scanner kin) {
@@ -155,17 +236,17 @@ public class DungeonAdventure {
 		return (again.equals("Y") || again.equals("y"));
 	}
 
-	public static void Intro() {
+	private static void Intro() {
 		System.out.println("------Welcome Adventurer!------");
 		System.out.println("You have answered a quest for the promise of adventure and LOOT upon "
 				+ "exploring a mysterious cave.\nAs you reach the cave you find a sign posted at the entrance, it reads: "
 				+ "\n\n"
-				+ "“Adventurers and Heroes complete the dungeon inside here by collecting the four pillars of OO."
+				+ "\"Adventurers and Heroes complete the dungeon inside here by collecting the four pillars of OO."
 				+ "\nBeware many obstacles will be in your way, \r\n"
-				+ "some helpful items can also be found to keep you alive.“");
+				+ "some helpful items can also be found to keep you alive.\"");
 	}
 
-	public static void Victory() {
+	private static void Victory() {
 		System.out.println("--------------------------------------------------------------------------------");
 		System.out.println("Congratulations by collecting the four pillars of OO!");
 		System.out.println("Your Prize is: ");

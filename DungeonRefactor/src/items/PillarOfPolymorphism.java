@@ -6,7 +6,8 @@ import enums.Items;
 public class PillarOfPolymorphism implements Item {
 
 	public String trigger(Hero hero) {
-		return hero.getName() + " picked up a pillar of Inheritance.";
+		hero.addItem(this.getKey());
+		return hero.getName() + " picked up a pillar of Polymorphism.";
 	}
 
 	public String interact(Hero hero) {

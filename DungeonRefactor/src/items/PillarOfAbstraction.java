@@ -6,6 +6,7 @@ import enums.Items;
 public class PillarOfAbstraction implements Item {
 
 	public String trigger(Hero hero) {
+		hero.addItem(this.getKey());
 		return hero.getName() + " picked up a pillar of Abstraction.";
 	}
 
