@@ -13,7 +13,6 @@ import items.Entrance;
 import items.Exit;
 import enums.Items;
 
-
 public class Dungeon implements Serializable {
 
 	private static final long serialVersionUID = 4374465783899583065L;
@@ -22,7 +21,7 @@ public class Dungeon implements Serializable {
 	public Dungeon(int x, int y, int monsters) {
 		generateDungeon(x, y);
 		populateUniqueItems(x, y);
-		populateMonsters(x, y, monsters);
+		//populateMonsters(x, y, monsters);
 		populateRoomItems(x, y);
 	}
 
@@ -56,47 +55,16 @@ public class Dungeon implements Serializable {
 			while (!placed) {
 				int roomY = (int) (Math.random() * y);
 				int roomX = (int) (Math.random() * x);
-				if (placed = !this.dungeonArray[roomY][roomX].hasMonster()) {
-					this.dungeonArray[roomY][roomX].setMonster(m);
+				if (!this.dungeonArray[roomY][roomX].hasUniqueItem()) {
+					if (placed = !this.dungeonArray[roomY][roomX].hasMonster()) {
+						this.dungeonArray[roomY][roomX].setMonster(m);
+					}
 				}
 			}
 		}
 
 	}
 
-
-	private static Hero chooseHero(Scanner kin) {
-		int choice = 0;
-		HeroFactory h = new HeroFactory();
-		Hero toRet;
-
-		System.out.println("Choose a hero:\n" + "1. Warrior\n" + "2. Sorceress\n" + "3. Thief\n" + "4. Paladin\n" +"5. Ranger");
-		try {
-			choice = kin.nextInt();
-		} catch (InputMismatchException e) {
-			kin.nextLine();
-			choice = 0;
-		}
-
-		if (choice == 1) {
-			toRet = h.createHero(Heros.Warrior);
-		} else if (choice == 2) {
-			toRet = h.createHero(Heros.Sorceress);
-		} else if (choice == 3) {
-			toRet = h.createHero(Heros.Thief);
-		} else if(choice == 4) {
-			toRet = h.createHero(Heros.Paladin);
-		} else if(choice == 5) {
-			toRet = h.createHero(Heros.Ranger);
-		} else if(choice == 32301){
-			toRet = h.createHero(Heros.Floridaman);
-		}else {
-			System.out.println("Invalid entry. Please enter an integer 1 through 5...");
-			return chooseHero(kin);
-		}
-		
-		return toRet;
-	}
 	private void populateRoomItems(int x, int y) {
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
@@ -203,6 +171,18 @@ public class Dungeon implements Serializable {
 		}
 		return null;
 	}
+	
+	public Room manageExit() {
+		for (int i = 0; i < dungeonArray.length; i++) {
+			for (int j = 0; j < dungeonArray[0].length; j++) {
+				Items item = dungeonArray[i][j].getUniqueItem();
+				if (item == Items.Exit) {
+					return dungeonArray[i][j];
+				}
+			}
+		}
+		return null;
+	}
 
 	public String displayVision(Hero h) {
 		String output = "";
@@ -247,22 +227,6 @@ public class Dungeon implements Serializable {
 			}
 		}
 		return dungeonString;
-	}
-
-	public static void main(String[] args) {
-
-		Dungeon d = new Dungeon(5, 5, 5);
-
-		HeroFactory hf = new HeroFactory();
-		Hero h = hf.createHero(Heros.Warrior);
-
-		Room ent = d.manageEntrance(h);
-
-		System.out.println(ent);
-		System.out.println("Hero X:" + h.getX() + ", Hero Y:" + h.getY());
-		System.out.println(d.toString());
-		System.out.println();
-
 	}
 
 }
