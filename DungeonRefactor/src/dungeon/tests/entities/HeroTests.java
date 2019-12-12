@@ -129,7 +129,7 @@ class HeroTests {
 		Hero sut = generateHero.createHero(sutKey);
 		int hitPointsBefore = sut.getHitPoints();
 		int damage = 50;
-		sut.subtractHitPoints(damage);
+		sut.takeDamage(damage);
 		int hitPointsAfter = sut.getHitPoints();
 		assertTrue(hitPointsBefore == hitPointsAfter + damage);
 	}
