@@ -5,20 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import dungeon.Dungeon;
-import entities.Hero;
-import entities.HeroFactory;
-import enums.Heros;
+import dungeon.entities.Hero;
+import dungeon.entities.HeroFactory;
+import dungeon.enums.Heros;
 
 class dungeonTests {
 	
-	private final Dungeon dungeon = new Dungeon(5, 5, 5);
-	
-	
-	/*@Test
-	void test() {
-		fail("Not yet implemented");
-	}*/
-	
+	private final Dungeon dungeon = new Dungeon(5, 5, 5);	
 	
 	@Test
     void moveHero_throwsIllegalArgumentExceptionWhenPassedNullHero_TRUE() {
