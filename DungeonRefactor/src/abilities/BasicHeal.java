@@ -5,10 +5,13 @@ import entities.Monster;
 public class BasicHeal {
 
 	public void heal(Monster source) {
-		boolean canHeal;
-		int healPoints;
 
-		canHeal = (Math.random() <= source.getChanceToHeal()) && (source.getHitPoints() > 0);
+		if (source == null) {
+			throw new IllegalArgumentException("Source was null");
+		}
+
+		boolean canHeal = (Math.random() <= source.getChanceToHeal()) && (source.getHitPoints() > 0);
+		int healPoints = 0;
 
 		if (canHeal) {
 			healPoints = (int) (Math.random() * (source.getMaxHeal() - source.getMinHeal() + 1)) + source.getMinHeal();
